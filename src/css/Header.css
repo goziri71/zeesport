@@ -1,0 +1,174 @@
+
+.header {
+    height: 9vh;
+    display: grid;
+    grid-template-columns: 100px 100px 135px;
+    gap: 19em;
+    justify-content: center;
+}
+
+.header a {
+    text-decoration: none;
+}
+
+
+.headerText {
+    display: flex;
+    margin-top: 0.5em;
+    margin-right: 2em;
+    font-size: 1.1rem;
+    color: #f49431;
+    letter-spacing: 4px;
+    font-family: var(--font-family);
+    cursor: pointer;
+}
+
+.headerBgColor {
+    background-color: var(--primary-color);
+    padding: 1em;
+    position: fixed;
+    width: 100vw;
+    top: 0;
+}
+
+.headerText img {
+    margin: 1em 0.2em;
+    width: 100%;
+    height: 3vh;
+}
+
+.headerText p {
+    margin: 1em 0.1em;
+    color: #ffffff;
+}
+
+.typesOfSport {
+    width: 100%;
+    font-family: var(--font-family);
+    letter-spacing: 2px;
+    text-align: center;
+    margin-top: 1em;
+}
+
+.secondheader {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: #f49431; 
+    height: 4vh;
+    font-family: var(--font-family2);
+    position: fixed;
+    width: 100vw;
+    top: 7.5em;
+}
+
+.secondheader a {
+    font-size: calc(.8vw + .8vh);
+    text-decoration: none;
+    padding: 0rem 0.95em 0.21em 0.95em;
+    letter-spacing: .2px;
+    color: #ffffff;
+}
+
+.secondheader a:hover {
+    border-bottom: #ff4102 solid 3px;
+}
+
+
+.typesOfSport a {
+    color: #ffffff;
+    padding: 1em 1em 0.4em 1em;
+    text-decoration: none;
+    font-family: var(--font-family2);
+    font-size: calc(.8vw + .8vh);
+}
+
+.typesOfSport a:hover {
+    background-color: #0000009c;
+    border-radius: 5px 5px 0px 0px;
+    color: #ffffff;
+}
+
+.sportFocus:focus {
+    background-color: #f49431;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.userlogin form {
+    flex-direction: row;
+    gap: 4px;
+}
+
+.userlogin {
+    align-self: center;
+    margin-left: auto;
+}
+
+.userlogin form input {
+    border-radius: 0px;
+    padding: 0.6em;
+    background-color: #4b4b4ba1;
+}
+
+.userlogin form input::placeholder {
+    color: #bfbfbf;
+    font-family: var(--font-family2);
+}
+
+.userlogin form input:focus {
+    outline: 0;
+    background-color: #8f8f8f;
+    color: #ffffff;
+}
+
+.loginButton {
+    background-color: #747474a1;
+    color: #bfbfbf;
+    cursor: pointer;
+    border-radius: 0px;
+    border: 0px;
+    padding: 0.6em 1em;
+    margin-left: -4px;
+    align-self: center;
+}
+
+.loginButtonInvalid {
+    background-color: #3f3f3fa1;
+    color: #787878;
+    cursor: pointer;
+    border-radius: 0px;
+    border: 0px;
+    padding: 0.6em 1em;
+    margin-left: -4px;
+    align-self: center;
+    cursor: not-allowed;
+}
+
+.usernamestyle {
+    color: #ffffff;
+    display: flex;
+    gap: .5em;
+}
+
+.usernamestyle h5 {
+    text-transform: uppercase;
+    font-size: .7rem;
+    border: none;
+    padding: .4em;
+    background-color: #f49431;
+    border-radius: 5px;
+}
+
+.usernamestyle button {
+    background-color: #f49431;
+    color: #ffffff;
+    font-size: .7rem;
+    padding: .4em;
+    border: none;
+    border-radius: 5px;
+}
+
+.usernamestyle button:hover {
+    background-color: #f49331b1;
+}

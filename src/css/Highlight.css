@@ -1,0 +1,92 @@
+.highltbox {
+    display: inline-block;
+    margin-top: 0.3em;
+    background-color: #000000f0;
+    padding: 1em;
+    width: 100%;
+    color: #ffffff;
+}
+
+.highltbox span {
+    font-family: var(--font-family2);
+    font-size: 1.8rem;
+}
+
+.thirdnavbar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.thirdnavbar ul {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    gap: 1.5em;
+    font-family: var(--font-family2);
+}
+
+.thirdnavbar ul li {
+    padding: 0.7em 0.8em 0.6em 0.8em;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.thirdnavbar ul li:hover {
+    border-bottom: #c16767 solid 2px;
+}
+
+.footbutton {
+    border: none;
+    background-color: #b9b9b9;
+    padding: 1em;
+}
+
+.textDropdown {
+    background-color: antiquewhite;
+    margin-top: 1em;
+}
+
+.textDropdown p {
+    padding: 1em 2em;
+}
+
+.textDropdown p:hover {
+    background-color: aquamarine;
+}
+
+.betlin {
+    width: 100%;
+}
+
+.hightcasing {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 0;
+}
+
+.selestoption {
+    background-color: #000000f0;
+    color: #ffffff;
+    border: none;
+    font-family: var(--font-family2);
+}
+
+.selestoption option {
+    background-color: #f8f8f8b3;
+    color: #000000f0;
+}
+
+.colorlivebetting {
+    background-color: #1eff00;
+    width: 1.3rem;
+    height: 1.3rem;
+    border-radius: 50%;
+    margin-top: 0.2em;
+}
+
+.liveactive {
+    display: flex;
+    flex-direction: row;
+    gap: 0.7em;
+}

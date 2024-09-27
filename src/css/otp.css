@@ -1,0 +1,104 @@
+.backgroundbody {
+    width: 100%;
+    height: 100vh;
+    background-image: radial-gradient(circle at top center, rgb(235, 235, 235) 0%, rgb(235, 235, 235) 10%,rgb(229, 229, 229) 10%, rgb(229, 229, 229) 19%,rgb(222, 222, 222) 19%, rgb(222, 222, 222) 22%,rgb(216, 216, 216) 22%, rgb(216, 216, 216) 24%,rgb(209, 209, 209) 24%, rgb(209, 209, 209) 63%,rgb(203, 203, 203) 63%, rgb(203, 203, 203) 75%,rgb(196, 196, 196) 75%, rgb(196, 196, 196) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.otpbody {
+    background-color: #00000056;
+    width: 40%;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: var(--font-family2);
+    color: #ffffff;
+}
+
+.otpbody h1 {
+    font-size: 1.7rem;
+    letter-spacing: 3px;
+    margin-top: -2em;
+}
+
+.otpbody h6 {
+    font-size: 1rem;
+    margin-top: 3em;
+    margin-bottom: 1em;
+    font-weight: lighter;
+    color: #ffffff;
+}
+
+.otpbody p {
+    margin-top: 2em;
+    margin-bottom: -3em;
+}
+
+.formotp {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.formotp input {
+    background-color: #0000004c;
+    width: 7%;
+    padding: 1em;
+    border: none;
+    letter-spacing: 5px;
+    border-radius: 0px;
+    outline: 1px solid #000;
+}
+
+.formotp input::placeholder {
+    text-align: center;
+}
+
+.formotp button {
+    width: 30%;
+    padding: 0.5em;
+    border: none;
+}
+
+.otpbody p {
+    position: absolute;
+    position: relative;
+    bottom: 6em;
+    color: #c40000;
+}
+
+.otpBtn {
+    background-color: #39be00;
+    color: #ffffff;
+    width: 100%;
+    margin: auto;
+    border: none;
+    padding: 0.5em;
+    font-size: 1rem;
+    border-radius: .3rem;
+}
+
+.invalidotpBtn {
+    background-color: #b3b3b3;
+    color: #e2e2e2;
+    width: 100%;
+    margin: auto;
+    border: none;
+    padding: 0.5em;
+    font-size: 1rem;
+    border-radius: .3rem;
+    cursor: not-allowed;
+}
+
+.otpbody a {
+    color: #ffffff;
+    font-size: 1.2rem;
+}

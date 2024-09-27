@@ -1,0 +1,19 @@
+/* .layout1 {
+    position: relative;
+    top: 0px;
+    overflow: hidden;
+}
+
+.layout2 {
+    position: sticky;
+    top: 0px;
+    
+}
+
+.layout3 {
+    width: 100%;
+    height: 85%;
+    max-height: calc(100% - 100px);
+    overflow: auto;
+    background-color: blueviolet;
+} */

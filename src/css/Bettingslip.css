@@ -1,0 +1,78 @@
+.bettingcase {
+    margin: 0.3em 0em 0em 0.7em;
+    background-color: #353535;
+    color: #fff;
+    padding: 0.4em;
+    width: 100%;
+}
+
+.betcase {
+    width: 100%;
+    background-color: aqua;
+}
+
+.betslipcashout {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    font-family: var(--font-family2);
+    padding-bottom: 1em;
+}
+
+.betslipcashout h4 {
+    padding: 1em;
+}
+
+.oddsbet p {
+    font-size: 0.8rem;
+    color: black;
+    font-family: var(--font-family2);
+}
+
+.oddsbet {
+    background-color: #fff;
+    padding: 0.5em;
+    width: 22em;
+}
+
+.oddsbet div {
+    padding-top: 1.3em;
+}
+
+.oddsbet select {
+    padding: 0.8em 0.4em;
+    margin-top: 0.7em;
+}
+
+.selectoptions option {
+    background-color: #dadada;
+    border-radius: 0px;
+    font-size: 0.7rem;
+    font-family: var(--font-family2);
+}
+
+.selectoptions option:hover {
+    background-color: rgb(42, 165, 63);
+}
+
+.oddsbet input {
+    border: #000 solid 1px;
+    border-radius: 0px;
+}
+
+.oddsbet button {
+    padding: 0.7em;
+    border: none;
+    margin-bottom: 0.7em;
+    background-color: #6c6c6c;
+    color: #fff;
+    font-family: var(--font-family2);
+    font-size: 1rem;
+}
+
+.oddsbet p {
+    color: #676767;
+}
+
+
+
