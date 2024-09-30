@@ -83,7 +83,7 @@ function CreateAcc() {
   };
 
   return (
-    <div>
+    <div className="containerbody">
       <button className="registerButton" onClick={handleToggle}>
         Register
       </button>

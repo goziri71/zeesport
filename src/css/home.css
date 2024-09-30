@@ -76,19 +76,24 @@ form input{
     cursor: pointer;
 }
 
-.sportyphoto {
-    margin: 0 auto;
-    width: 65%;
-}
-
-.pupolarstructure {
-    background-color: #c6c6c662;
-    margin-top: 9em;
+.sportywraper {
+    display: flex;
+    flex-direction: column;
 }
 
 .sportyphoto img {
     margin-top: 0.5em;
+    width: 63%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
+
+.pupolarstructure {
+    background-color: #c6c6c662;
+    margin-top: 8.5em;
+}
+
 
 .sportpics img {
     width: 100%;

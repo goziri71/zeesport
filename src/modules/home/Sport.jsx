@@ -19,7 +19,7 @@ function Sport() {
     <div>
       <AppLayout>
         <SecondHeader />
-        <Hommee />
+        {/* <Hommee /> */}
       </AppLayout>
     </div>
   );

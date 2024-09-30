@@ -117,10 +117,10 @@ function Header() {
                 </button>
               </form>
             )}
-          </div>
-          <div>
-            {(validUser.status == 400 ||
-              validUser.message == "Network Error") && <CreateAcc />}
+            <div>
+              {(validUser.status == 400 ||
+                validUser.message == "Network Error") && <CreateAcc />}
+            </div>
           </div>
         </div>
 

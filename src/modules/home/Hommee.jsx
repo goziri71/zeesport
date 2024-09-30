@@ -34,8 +34,8 @@ function Hommee() {
       <div className="sportywraper">
         <div className="sportyphoto">
           <img src={image3} alt="a betting ads" />
-          <Hightlight />
         </div>
+        <Hightlight />
       </div>
     </div>
   );
