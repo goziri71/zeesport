@@ -11,6 +11,10 @@
     text-decoration: none;
 }
 
+.loginbtndisplay {
+    display: none;
+}
+
 
 .headerText {
     display: flex;
@@ -48,6 +52,8 @@
     margin-top: 1em;
 }
 
+
+
 .secondheader {
     display: flex;
     flex-direction: row;
@@ -58,10 +64,11 @@
     font-family: var(--font-family2);
     position: fixed;
     width: 100vw;
-    top: 7.3em;
+    top: 8.7em;
 }
 
 .secondheader a {
+    display: flex;
     font-size: calc(.8vw + .8vh);
     text-decoration: none;
     padding: 0rem 0.95em 0.21em 0.95em;
@@ -171,27 +178,42 @@
     background-color: #f49331b1;
 }
 
+.iconebar {
+    font-size: 2.9rem;
+    color: #ffffff;
+    display: none;
+    align-items: center;
+    justify-content: end;
+}
 
 
 
 
-@media (max-width: 863px) {
+
+@media (max-width: 1052px) {
     .header {
       height: 14vh;
       gap: 0;
+      flex-direction: column;
     }
+
     .headerText {
         margin-top: -.8em;
         margin-right: 0;
+        align-items: center;
+        justify-content: center;
     }
+
+    .headerText img {
+        margin: 1em 0.2em;
+        width: 5%;
+        height: 3vh;
+    }
+
     .secondheader {
-      top: 9.5em;
+      top: 11.3em;
     }
     .secondheader a {
-        font-size: calc(.9vw + .9vh);
-      }
-    .typesOfSport a {
-        padding: 1em 1em 0.4em 1em;
         font-size: calc(.9vw + .9vh);
     }
 
@@ -205,6 +227,124 @@
 }
 
 
-@media (max-width: 740px) {
 
+@media (max-width: 730px) {
+
+    .header {
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+
+      .headerText {
+        margin-top: 0;
+        justify-content: start;
+    }
+
+    .secondheader {
+        display: none;
+    }
+
+    .typsofsportdiv a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #f49431;
+        text-decoration: none;
+        color: #ffffff;
+        padding: .5em;
+        flex-wrap: wrap;
+        left: 0;
+    }
+
+    .typsofsportdiv {
+        position: absolute;
+        right: -.7em;
+    }
+
+    .typesOfSporthidedisplay {
+        background-color: #fbff00;
+        letter-spacing: 3px;
+        text-align: center;
+        display: flex;
+        justify-content: end;
+        left: -.1em;
+        position: relative;
+    }
+
+    .typesOfSport {
+        background-color: #ff0000;
+        letter-spacing: 3px;
+        text-align: center;
+        display: none;
+        justify-content: end;
+        left: -.1em;
+    }
+
+    .headerText img {
+        min-width: 15%;
+    }
+
+    .iconebar {
+        position: absolute;
+        display: flex;
+        justify-content: end;
+        right: 10px;
+        top: 1.73em;
+    }
+}
+
+@media (max-width: 570px) {
+    .formbreak {
+        background-color: #00000042;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        width: 100vw;
+        height: 20vh;
+        top: 9em;
+        left: 0;
+    }
+
+    .formbreakhide {
+        background-color: #00000042;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        width: 100vw;
+        height: 20vh;
+        top: 9em;
+        left: 0;
+    }
+
+    .typsofsportdiv {
+        position: absolute;
+        top: 1em;
+        right: -.7em;
+    }
+
+    .logincreate_acc {
+        font-family: var(--font-family2);
+        display: flex;
+        align-items: center;
+        position: absolute;
+        left: 15px;
+        bottom: .7em;
+    }
+
+    .loginbtndisplay {
+        display: block;
+        background-color: #fbff0000;
+        padding: .4em;
+        color: #ffffff;
+        border: 1px solid;
+        margin-top: .7em;
+        cursor: pointer;
+    }
+
+    .iconebar {
+        top: 2.19em;
+    }
 }

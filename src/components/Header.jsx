@@ -7,6 +7,7 @@ import { AuthContext } from "../context/authContextProvider";
 import useLogout from "../hooks/useLogout";
 import { AuthApis } from "./../api/index";
 import { dotSpinner } from "ldrs";
+import { Icon } from "@iconify/react";
 
 const authApi = new AuthApis();
 const reducer = (state, action) => {
@@ -29,6 +30,8 @@ function Header() {
   const [error, setError] = useState(null);
   const [state, dispatch] = useReducer(reducer, { email: "", password: "" });
   const [formValue, setFormValue] = useState(null);
+  const [dropDown, setDropDown] = useState(true);
+  const [loginDisplay, setLoginDisplay] = useState(null);
 
   const handleSubmit = async (e) => {
     setLoginSpiner(true);
@@ -47,6 +50,10 @@ function Header() {
   };
 
   console.log(validUser);
+
+  const handleSideBar = () => {
+    setDropDown(!dropDown);
+  };
 
   useEffect(() => {
     (() => {
@@ -83,24 +90,29 @@ function Header() {
             </div>
             {(validUser.status == 400 ||
               validUser.message == "Network Error") && (
-              <form onSubmit={handleSubmit}>
-                <input
-                  type="text"
-                  placeholder="Email"
-                  onChange={(e) => {
-                    dispatch({ type: "EMAIL", payload: e.target.value });
-                  }}
-                  value={state.email}
-                />
-                <input
-                  type="password"
-                  placeholder="Password"
-                  onChange={(e) => {
-                    dispatch({ type: "PASSWORD", payload: e.target.value });
-                    setFormValue(e.target.value !== "" && state.email !== "");
-                  }}
-                  value={state.password}
-                />
+              <form
+                className={!loginDisplay ? "formbreak" : "formbreakhide"}
+                onSubmit={handleSubmit}
+              >
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Email"
+                    onChange={(e) => {
+                      dispatch({ type: "EMAIL", payload: e.target.value });
+                    }}
+                    value={state.email}
+                  />
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    onChange={(e) => {
+                      dispatch({ type: "PASSWORD", payload: e.target.value });
+                      setFormValue(e.target.value !== "" && state.email !== "");
+                    }}
+                    value={state.password}
+                  />
+                </div>
                 <button
                   className={formValue ? "loginButton" : "loginButtonInvalid"}
                   type="submit"
@@ -117,35 +129,58 @@ function Header() {
                 </button>
               </form>
             )}
-            <div>
+            <div className="logincreate_acc">
+              <div>
+                <button
+                  className="loginbtndisplay"
+                  onClick={() => {
+                    setLoginDisplay(!loginDisplay);
+                  }}
+                >
+                  Login
+                </button>
+              </div>
               {(validUser.status == 400 ||
                 validUser.message == "Network Error") && <CreateAcc />}
             </div>
           </div>
         </div>
 
-        <div className="typesOfSport">
-          <Link className="sportFocus" to="/">
-            Sport
-          </Link>
-          <Link className="sportFocus" to="/Casino">
-            Casino
-          </Link>
-          <Link className="sportFocus" to="/LiveBetting">
-            LiveBetting
-          </Link>
-          <Link className="sportFocus" to="/SchedulVirtual">
-            SchedulVirtual
-          </Link>
-          <Link className="sportFocus" to="/Jackport">
-            Jackport
-          </Link>
-          <Link className="sportFocus" to="/LiveScore">
-            Livescore
-          </Link>
-          <Link className="sportFocus" to="/Result">
-            Result
-          </Link>
+        <div className={dropDown ? "typesOfSport" : "typesOfSporthidedisplay"}>
+          <div className="typsofsportdiv">
+            <Link className="sportFocus" to="/">
+              Sport
+            </Link>
+            <Link className="sportFocus" to="/Casino">
+              Casino
+            </Link>
+            <Link className="sportFocus" to="/LiveBetting">
+              LiveBetting
+            </Link>
+            <Link className="sportFocus" to="/SchedulVirtual">
+              SchedulVirtual
+            </Link>
+            <Link className="sportFocus" to="/Jackport">
+              Jackport
+            </Link>
+            <Link className="sportFocus" to="/LiveScore">
+              Livescore
+            </Link>
+            <Link className="sportFocus" to="/Result">
+              Result
+            </Link>
+          </div>
+        </div>
+      </div>
+      <div className="iconebar">
+        <div onClick={handleSideBar}>
+          <Icon
+            icon={
+              dropDown
+                ? "material-symbols:menu"
+                : "line-md:menu-to-close-alt-transition"
+            }
+          />
         </div>
       </div>
     </div>
