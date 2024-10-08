@@ -10,6 +10,7 @@ import Hommee from "./modules/home/Hommee";
 import Football from "./modules/football/Football";
 import LiveScore from "./modules/livescore/LiveScore";
 import Ottpp from "./modules/otp/Ottpp";
+import ForgotPassword from "./modules/forgortPassword/ForgotPassword";
 
 export const router = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ export const router = createBrowserRouter([
   {
     path: "/verify",
     element: <Ottpp />,
+  },
+  {
+    path: "/reset/password/:id/:token",
+    element: <ForgotPassword />,
   },
   {
     path: "*",

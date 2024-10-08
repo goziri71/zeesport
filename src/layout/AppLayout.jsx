@@ -3,6 +3,7 @@ import "../css/AppLayout.css";
 import Header from "./../components/Header";
 import { dotSpinner } from "ldrs";
 import { AuthContext } from "../context/authContextProvider";
+import SecondHeader from "../components/SecondHeader";
 
 function AppLayout({ children }) {
   const { validUser } = useContext(AuthContext);
@@ -27,6 +28,7 @@ function AppLayout({ children }) {
         <>
           <div className="layout2">
             <Header />
+            <SecondHeader />
           </div>
 
           <div className="layout3">{children}</div>

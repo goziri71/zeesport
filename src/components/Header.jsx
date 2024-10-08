@@ -45,11 +45,13 @@ function Header() {
       setUserDetails(validUser.user.firstname);
     } else {
       setError(response);
+      setLoginSpiner(null);
+      setTimeout(() => {
+        setError(null);
+      }, 4000);
     }
     console.log(response);
   };
-
-  console.log(validUser);
 
   const handleSideBar = () => {
     setDropDown(!dropDown);
@@ -71,7 +73,7 @@ function Header() {
             <div className="headerText">
               <h1>ZeeSport</h1>
               <img src={image1} alt="this is the nigeria flag" />
-              <p>Nigera</p>
+              <p>Nigeria</p>
             </div>
           </Link>
 
@@ -94,7 +96,12 @@ function Header() {
                 className={!loginDisplay ? "formbreak" : "formbreakhide"}
                 onSubmit={handleSubmit}
               >
-                <div>
+                <div className="formedite">
+                  {error && (
+                    <div className="texterrordisplay">
+                      <p>{error.response.data.error}</p>
+                    </div>
+                  )}
                   <input
                     type="text"
                     placeholder="Email"
@@ -112,21 +119,21 @@ function Header() {
                     }}
                     value={state.password}
                   />
+                  <button
+                    className={formValue ? "loginButton" : "loginButtonInvalid"}
+                    type="submit"
+                  >
+                    {loginSpiner ? (
+                      <l-dot-spinner
+                        size="9"
+                        speed="0.3"
+                        color="white"
+                      ></l-dot-spinner>
+                    ) : (
+                      "Login"
+                    )}
+                  </button>
                 </div>
-                <button
-                  className={formValue ? "loginButton" : "loginButtonInvalid"}
-                  type="submit"
-                >
-                  {loginSpiner ? (
-                    <l-dot-spinner
-                      size="9"
-                      speed="0.3"
-                      color="white"
-                    ></l-dot-spinner>
-                  ) : (
-                    "Login"
-                  )}
-                </button>
               </form>
             )}
             <div className="logincreate_acc">

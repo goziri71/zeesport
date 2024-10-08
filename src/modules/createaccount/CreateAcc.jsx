@@ -48,7 +48,7 @@ function CreateAcc() {
   const navigate = useNavigate();
   dotSpinner.register();
 
-  const handleToggle = () => {
+  const handleRegisterToggle = () => {
     setOpenCreateAccount(!openCreateAccount);
   };
 
@@ -84,7 +84,7 @@ function CreateAcc() {
 
   return (
     <div className="containerbody">
-      <button className="registerButton" onClick={handleToggle}>
+      <button className="registerButton" onClick={handleRegisterToggle}>
         Register
       </button>
       {openCreateAccount ? (
@@ -201,12 +201,12 @@ function CreateAcc() {
             <div className="loadingspiner">
               {networkError && <h1>{networkError}</h1>}
             </div>
+            <p>
+              By creating an account, you agree to our Terms & Conditions and
+              confirm that you are at least 18 years old or over and all
+              information given is true.
+            </p>
           </div>
-          <p>
-            By creating an account, you agree to our Terms & Conditions and
-            confirm that you are at least 18 years old or over and all
-            information given is true.
-          </p>
         </div>
       ) : null}
     </div>
