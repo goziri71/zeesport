@@ -92,49 +92,58 @@ function Header() {
             </div>
             {(validUser.status == 400 ||
               validUser.message == "Network Error") && (
-              <form
-                className={!loginDisplay ? "formbreak" : "formbreakhide"}
-                onSubmit={handleSubmit}
-              >
-                <div className="formedite">
-                  {error && (
-                    <div className="texterrordisplay">
-                      <p>{error.response.data.error}</p>
-                    </div>
-                  )}
-                  <input
-                    type="text"
-                    placeholder="Email"
-                    onChange={(e) => {
-                      dispatch({ type: "EMAIL", payload: e.target.value });
-                    }}
-                    value={state.email}
-                  />
-                  <input
-                    type="password"
-                    placeholder="Password"
-                    onChange={(e) => {
-                      dispatch({ type: "PASSWORD", payload: e.target.value });
-                      setFormValue(e.target.value !== "" && state.email !== "");
-                    }}
-                    value={state.password}
-                  />
-                  <button
-                    className={formValue ? "loginButton" : "loginButtonInvalid"}
-                    type="submit"
-                  >
-                    {loginSpiner ? (
-                      <l-dot-spinner
-                        size="9"
-                        speed="0.3"
-                        color="white"
-                      ></l-dot-spinner>
-                    ) : (
-                      "Login"
+              <div className="login-forgetpassword-box">
+                <form
+                  className={!loginDisplay ? "formbreak" : "formbreakhide"}
+                  onSubmit={handleSubmit}
+                >
+                  <div className="formedite">
+                    {error && (
+                      <div className="texterrordisplay">
+                        <p>{error.response.data.error}</p>
+                      </div>
                     )}
-                  </button>
+                    <input
+                      type="text"
+                      placeholder="Email"
+                      onChange={(e) => {
+                        dispatch({ type: "EMAIL", payload: e.target.value });
+                      }}
+                      value={state.email}
+                    />
+                    <input
+                      type="password"
+                      placeholder="Password"
+                      onChange={(e) => {
+                        dispatch({ type: "PASSWORD", payload: e.target.value });
+                        setFormValue(
+                          e.target.value !== "" && state.email !== ""
+                        );
+                      }}
+                      value={state.password}
+                    />
+                    <button
+                      className={
+                        formValue ? "loginButton" : "loginButtonInvalid"
+                      }
+                      type="submit"
+                    >
+                      {loginSpiner ? (
+                        <l-dot-spinner
+                          size="9"
+                          speed="0.3"
+                          color="white"
+                        ></l-dot-spinner>
+                      ) : (
+                        "Login"
+                      )}
+                    </button>
+                  </div>
+                </form>
+                <div className="forgotpasword">
+                  <p>Forgot Password</p>
                 </div>
-              </form>
+              </div>
             )}
             <div className="logincreate_acc">
               <div>

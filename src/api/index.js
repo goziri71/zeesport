@@ -64,6 +64,7 @@ export class AuthApis {
   async authenticator() {
     try {
       const token = JSON.parse(localStorage.getItem("LT"));
+      console.log(token);
       const response = await axios.get(
         `${BASE_URL}/yusuf_atlantis/api/v1/user/authorization`,
         {

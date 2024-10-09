@@ -7,6 +7,19 @@
     flex-wrap: wrap;
 }
 
+.login-forgetpassword-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.forgotpasword {
+    align-self: flex-end;
+    font-family: var(--font-family2);
+    color: #c7c7c7;
+}
+
+
+
 .header a {
     text-decoration: none;
 }
@@ -267,11 +280,11 @@
     }
 }
 
-@media (max-width: 769px) {
+/* @media (max-width: 769px) {
     .secondheader {
         top: 13.1em;
         }
-}
+} */
 
 @media (max-width: 730px) {
 
@@ -406,6 +419,13 @@
     }
 }
 
+@media (max-width: 570px) {
+    .iconebar {
+        top: 1.9em;
+    }
+    
+}
+
 @media (max-width: 431px) {
     .iconebar {
         top: 2.5em;
@@ -427,7 +447,7 @@
 
 @media (max-width: 415px) {
     .iconebar {
-        top: 1.9em;
+        top: 1.88em;
     }
 
     .formbreakhide {
@@ -457,7 +477,7 @@
 
 @media (max-width: 361px) {
     .iconebar {
-        top: 1.99em;
+        top: 1.88em;
     }
 
     .formbreakhide {
