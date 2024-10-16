@@ -10,7 +10,7 @@
     font-family: var(--font-family2);
 }
 
-.registerCase {
+/* .registerCase {
     position: absolute;
     top: 0;
     left: 0;
@@ -20,14 +20,19 @@
     justify-content: center;
     align-items: center;
     background-color: #000000a8;
-}
+} */
 
 .formCase {
     font-family: var(--font-family2);
     background-image: radial-gradient(circle at top center, rgb(235, 235, 235) 0%, rgb(235, 235, 235) 10%,rgb(229, 229, 229) 10%, rgb(229, 229, 229) 19%,rgb(222, 222, 222) 19%, rgb(222, 222, 222) 22%,rgb(216, 216, 216) 22%, rgb(216, 216, 216) 24%,rgb(209, 209, 209) 24%, rgb(209, 209, 209) 63%,rgb(203, 203, 203) 63%, rgb(203, 203, 203) 75%,rgb(196, 196, 196) 75%, rgb(196, 196, 196) 100%);
-    width: 40%;
-    box-shadow: -0px -0px 30px 5px #000000;
-    padding: 1em;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 35vw;
+    height: 45vh;
+    padding: .5em;
 }
 
 .registerCase form input {
@@ -36,7 +41,6 @@
     color: #000000;
     font-size: 0.8rem;
     margin: 3px;
-    
 }
 
 .registerCase form input::placeholder {
@@ -82,11 +86,14 @@
 .formFlex div {
     display: flex;
     flex-direction: row;
-    gap: 0.1em;
+    background-color: #ff0000;
 }
 
 .dobcase {
     align-self: center;
+    background-color: #f49431;
+    display: flex;
+    flex-direction: row;
 }
 
 .formCase h4 {
@@ -94,8 +101,6 @@
     color: #f49431;
     letter-spacing: 5px;
     padding: 0.2em;
-    margin-top: -1em;
-    margin-bottom: 1em;
 }
 
 
@@ -117,10 +122,10 @@
 
 
 
-@media (max-width: 863px){
+/* @media (max-width: 863px){
 
     .registerButton {
         padding: .5em .8em;
         margin-top: .7em;
     }
-}
+} */

@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext, useReducer } from "react";
 import "../css/Header.css";
 import { Link } from "react-router-dom";
-import image1 from "../assets/images/Nigeriaflag.png";
+import image1 from "../assets/images/ZeeSportlogo.png";
 import CreateAcc from "../modules/createaccount/CreateAcc";
 import { AuthContext } from "../context/authContextProvider";
 import useLogout from "../hooks/useLogout";
@@ -21,6 +21,13 @@ const reducer = (state, action) => {
   }
 };
 
+const reducer2 = (state, action) => {
+  switch (action.type) {
+    case "email":
+      return { ...state, email: action.payload };
+  }
+};
+
 dotSpinner.register();
 
 function Header() {
@@ -32,11 +39,25 @@ function Header() {
   const [formValue, setFormValue] = useState(null);
   const [dropDown, setDropDown] = useState(true);
   const [loginDisplay, setLoginDisplay] = useState(null);
+  const [forgotpassword, setForgotpassword] = useState(null);
+  const [resetState, dispatchState] = useReducer(reducer2, { email: "" });
+  const [resetStateLoader, setReseatStateLoader] = useState(null);
+  const [resetErrorMesage, setResetErrorMesage] = useState(null);
+  const [updateMessagebgc, setUpdateMessagebgc] = useState(null);
 
   const handleSubmit = async (e) => {
-    setLoginSpiner(true);
     e.preventDefault();
     setError(null);
+    if (!state.email || !state.password) {
+      setError({
+        response: { data: { error: "Email and password are required." } },
+      });
+      setTimeout(() => {
+        setError(null);
+      }, 3000);
+      return;
+    }
+    setLoginSpiner(true);
     const response = await authApi.loginUser(state);
     if (response.success) {
       localStorage.setItem("LT", JSON.stringify(response.token));
@@ -57,6 +78,19 @@ function Header() {
     setDropDown(!dropDown);
   };
 
+  const handlerest_password = async (e) => {
+    e.preventDefault();
+    setResetErrorMesage(null);
+    setReseatStateLoader(true);
+    console.log(resetState.email);
+    const response = await authApi.resetPassword(resetState.email);
+    if (response) {
+      setResetErrorMesage(response);
+      setUpdateMessagebgc(response.success);
+      setReseatStateLoader(null);
+    }
+  };
+
   useEffect(() => {
     (() => {
       setTimeout(() => {
@@ -71,9 +105,10 @@ function Header() {
         <div className="header">
           <Link to="/">
             <div className="headerText">
-              <h1>ZeeSport</h1>
+              {/* <h1>ZeeSport</h1>
               <img src={image1} alt="this is the nigeria flag" />
-              <p>Nigeria</p>
+              <p>Nigeria</p> */}
+              <img src={image1} alt="this is zee sporty logo" />
             </div>
           </Link>
 
@@ -104,7 +139,7 @@ function Header() {
                       </div>
                     )}
                     <input
-                      type="text"
+                      type="email"
                       placeholder="Email"
                       onChange={(e) => {
                         dispatch({ type: "EMAIL", payload: e.target.value });
@@ -140,9 +175,86 @@ function Header() {
                     </button>
                   </div>
                 </form>
-                <div className="forgotpasword">
-                  <p>Forgot Password</p>
+                <div
+                  className={
+                    !loginDisplay ? "forgotpasword" : "forgotpasswordshow"
+                  }
+                >
+                  <p
+                    onClick={() => {
+                      setForgotpassword(!forgotpassword);
+                    }}
+                  >
+                    Forgot Password?
+                  </p>
                 </div>
+                {forgotpassword && (
+                  <div className="forgot_Password">
+                    <div className="forgotpassword_child">
+                      <div
+                        className="icon_icon"
+                        onClick={() => {
+                          setForgotpassword(null);
+                          setResetErrorMesage(null);
+                          setReseatStateLoader(null);
+                        }}
+                      >
+                        <Icon
+                          icon="weui:close-filled"
+                          width="1.2em"
+                          height="1.2em"
+                        />
+                      </div>
+
+                      <div className="forgot_input">
+                        <div
+                          className={
+                            updateMessagebgc
+                              ? "forgot_err-message_success"
+                              : "forgot_errz-message"
+                          }
+                        >
+                          {resetErrorMesage && (
+                            <h5>
+                              {resetErrorMesage.error ||
+                                resetErrorMesage.message}
+                            </h5>
+                          )}
+                        </div>
+                        <p>
+                          To reset your password, please confirm your account
+                          first.
+                        </p>
+                        <form onSubmit={handlerest_password}>
+                          <label>Email Address</label>
+                          <input
+                            required
+                            onChange={(e) =>
+                              dispatchState({
+                                type: "email",
+                                payload: e.target.value,
+                              })
+                            }
+                            type="email"
+                            placeholder="email address"
+                            value={resetState.email}
+                          />
+                          <button>
+                            {resetStateLoader ? (
+                              <l-dot-spinner
+                                size="9"
+                                speed="0.3"
+                                color="white"
+                              ></l-dot-spinner>
+                            ) : (
+                              "Submit"
+                            )}
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
             <div className="logincreate_acc">

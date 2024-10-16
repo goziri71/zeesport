@@ -1,41 +1,92 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import "../../css/forgortPassword.css";
+import { Icon } from "@iconify/react";
+import { AuthApis } from "../../api";
+import { useNavigate } from "react-router-dom";
+import { dotSpinner } from "ldrs";
+
+const authApi = new AuthApis();
+dotSpinner.register();
 
 function ForgotPassword() {
+  const [viewPassword, setViewPassword] = useState(null);
+  const [updatePassword, setUpdatePassword] = useState("");
+  const navigate = useNavigate();
   const { id, token } = useParams();
-  console.log(id, token);
+  const [responseData, setResponseData] = useState(null);
+  const [responseSpiner, setResponseSpiner] = useState(null);
+
+  const handleUpdatePassword = async (e) => {
+    e.preventDefault();
+    setResponseSpiner(true);
+    const response = await authApi.updatePassword(updatePassword, id, token);
+    setResponseData(response);
+    setResponseSpiner(null);
+    if (response.success) {
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
+    }
+  };
+
+  console.log(responseData);
   return (
     <div className="parent">
-      <div className="grid-parent">
-        <div className="one">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic
-            veritatis et impedit debitis nostrum optio tempora dicta quis
-            voluptate autem, laudantium deserunt, dolorum, praesentium
-            voluptatum enim voluptatem inventore? Earum, neque.
-          </p>
+      <img />
+      <div>
+        <h1>Create New Password</h1>
+        <p>
+          your new password must be defferent
+          <br /> from previous used password
+        </p>
+        <div className="grid-parent">
+          {responseData && (
+            <div className="messageResponse">
+              <p>{responseData?.message}</p>
+            </div>
+          )}
+
+          <form onSubmit={handleUpdatePassword}>
+            <label>Password</label>
+            <div className="input-with-icon">
+              <input
+                onChange={(e) => setUpdatePassword(e.target.value)}
+                type={viewPassword ? "text" : "password"}
+                placeholder="New Password"
+                value={updatePassword}
+              />
+              {viewPassword ? (
+                <Icon
+                  icon="codicon:eye"
+                  width="1.2em"
+                  height="1.2em"
+                  style={{ color: "black" }}
+                  onClick={() => setViewPassword(!viewPassword)}
+                />
+              ) : (
+                <Icon
+                  icon="fluent:eye-off-20-regular"
+                  width="1.2em"
+                  height="1.2em"
+                  style={{ color: "black" }}
+                  onClick={() => setViewPassword(!viewPassword)}
+                />
+              )}
+            </div>
+            <button>
+              {responseSpiner ? (
+                <l-dot-spinner
+                  size="9"
+                  speed="0.3"
+                  color="white"
+                ></l-dot-spinner>
+              ) : (
+                "Reset Password"
+              )}
+            </button>
+          </form>
         </div>
-        <div className="two">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit reiciendis
-          ipsum? Blanditiis, odit quo! Debitis quisquam consectetur omnis
-          laboriosam at asperiores fugiat, et nemo saepe! Minima vitae, autem
-          nostrum earum rem recusandae. Tempora asperiores illo itaque ducimus,
-          unde laudantium rem voluptates architecto id corporis. Minus quaerat
-          aspernatur hic nihil et! Quibusdam quis delectus qui sequi
-          Reprehenderit vel dolor nesciunt natus! Sequi, officiis id totam ab
-          beatae sint quidem, aliquid at eos et, amet adipisci quam! Soluta
-          exercitationem deserunt atque unde quis quos quaerat, amet officia.
-          Temporibus, pariatur. Aut recusandae commodi maxime, ipsam culpa non
-          dolores unde nam sed fugiat adipisci, aliquid pariatur alias labore
-          porro cumque? Quo, molestias ipsa? Ipsum rem quam quaerat eveniet.
-          Odit. Fugit quia incidunt consectetur inventore blanditiis suscipit
-          soluta!
-        </div>
-        <div className="three"></div>
-        <div className="four"></div>
-        <div className="five"></div>
-        <div className="six"></div>
       </div>
     </div>
   );

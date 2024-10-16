@@ -4,6 +4,7 @@ import { AuthApis } from "../../api";
 import { useNavigate } from "react-router-dom";
 import { OddContext } from "../../context/oddContext";
 import { dotSpinner } from "ldrs";
+import { Icon } from "@iconify/react";
 
 const authApi = new AuthApis();
 
@@ -54,6 +55,9 @@ function CreateAcc() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!formValue) {
+      return;
+    }
     setLoading(true);
     setError(null);
     setNetworkError(null);
@@ -77,8 +81,6 @@ function CreateAcc() {
       setNetworkError(null);
     }
     console.log(response);
-
-    console.log(state, "empty");
     setLoading(false);
   };
 
@@ -90,110 +92,123 @@ function CreateAcc() {
       {openCreateAccount ? (
         <div className="registerCase">
           <div className="formCase">
+            <div>
+              <Icon
+                icon="mdi:cancel-bold"
+                width="1.2em"
+                height="1.2em"
+                style={{ color: "black" }}
+              />
+            </div>
             <h4>Register</h4>
-            <form className="formFlex" onSubmit={handleSubmit}>
-              <div>
-                <input
-                  onChange={(e) =>
-                    dispatch({ type: "FIRSTNAME", payload: e.target.value })
-                  }
-                  name="firstName"
-                  value={state.firstname}
-                  type="text"
-                  placeholder="first Name"
-                />
+            <form onSubmit={handleSubmit}>
+              <div className="formFlex">
+                <div>
+                  <input
+                    onChange={(e) =>
+                      dispatch({ type: "FIRSTNAME", payload: e.target.value })
+                    }
+                    name="firstName"
+                    value={state.firstname}
+                    type="text"
+                    placeholder="first Name"
+                  />
 
-                <input
-                  onChange={(e) =>
-                    dispatch({ type: "LASTNAME", payload: e.target.value })
-                  }
-                  name="lastName"
-                  value={state.lastname}
-                  type="text"
-                  placeholder="last Name"
-                />
+                  <input
+                    onChange={(e) =>
+                      dispatch({ type: "LASTNAME", payload: e.target.value })
+                    }
+                    name="lastName"
+                    value={state.lastname}
+                    type="text"
+                    placeholder="last Name"
+                  />
+                </div>
+
+                <div>
+                  <input
+                    onChange={(e) =>
+                      dispatch({ type: "EMAIL", payload: e.target.value })
+                    }
+                    name="email"
+                    value={state.email}
+                    type="text"
+                    placeholder="Email"
+                  />
+                  <input
+                    onChange={(e) =>
+                      dispatch({ type: "PASSWORD", payload: e.target.value })
+                    }
+                    name="password"
+                    value={state.password}
+                    type="password"
+                    placeholder="Password"
+                  />
+                </div>
+
+                <div>
+                  <input
+                    onChange={(e) =>
+                      dispatch({ type: "PHONE", payload: e.target.value })
+                    }
+                    name="phone"
+                    value={state.phone}
+                    type="number"
+                    placeholder="Phone Number"
+                  />
+
+                  <input
+                    onChange={(e) =>
+                      dispatch({ type: "ADDRESS", payload: e.target.value })
+                    }
+                    name="address"
+                    value={state.address}
+                    type="text"
+                    placeholder="Address"
+                  />
+                </div>
+
+                <div className="dobcase">
+                  <input
+                    onChange={(e) => {
+                      dispatch({
+                        type: "DATEOFBIRTH",
+                        payload: e.target.value,
+                      });
+                      setFormValue(
+                        e.target.value !== "" &&
+                          state.dateofbirth !== "" &&
+                          state.firstname &&
+                          state.lastname &&
+                          state.phone &&
+                          state.email &&
+                          state.password &&
+                          state.address
+                      );
+                    }}
+                    name="dateofbirth"
+                    value={state.dateofbirth}
+                    type="number"
+                    placeholder="DOB"
+                  />
+
+                  <button
+                    className={formValue ? "submitbutton" : "invalidSubmitBtn"}
+                    type="submit"
+                    disabled={!formValue}
+                  >
+                    {loading ? (
+                      <l-dot-spinner
+                        size="22"
+                        speed="0.3"
+                        color="white"
+                      ></l-dot-spinner>
+                    ) : (
+                      "Create New Account"
+                    )}
+                  </button>
+                </div>
               </div>
-
-              <div>
-                <input
-                  onChange={(e) =>
-                    dispatch({ type: "EMAIL", payload: e.target.value })
-                  }
-                  name="email"
-                  value={state.email}
-                  type="text"
-                  placeholder="Email"
-                />
-                <input
-                  onChange={(e) =>
-                    dispatch({ type: "PASSWORD", payload: e.target.value })
-                  }
-                  name="password"
-                  value={state.password}
-                  type="password"
-                  placeholder="Password"
-                />
-              </div>
-
-              <div>
-                <input
-                  onChange={(e) =>
-                    dispatch({ type: "PHONE", payload: e.target.value })
-                  }
-                  name="phone"
-                  value={state.phone}
-                  type="number"
-                  placeholder="Phone Number"
-                />
-
-                <input
-                  onChange={(e) =>
-                    dispatch({ type: "ADDRESS", payload: e.target.value })
-                  }
-                  name="address"
-                  value={state.address}
-                  type="text"
-                  placeholder="Address"
-                />
-              </div>
-
-              <div className="dobcase">
-                <input
-                  onChange={(e) => {
-                    dispatch({ type: "DATEOFBIRTH", payload: e.target.value });
-                    setFormValue(
-                      e.target.value !== "" &&
-                        state.dateofbirth !== "" &&
-                        state.firstname &&
-                        state.lastname &&
-                        state.phone &&
-                        state.email &&
-                        state.password &&
-                        state.address
-                    );
-                  }}
-                  name="dateofbirth"
-                  value={state.dateofbirth}
-                  type="number"
-                  placeholder="DOB"
-                />
-              </div>
-
-              <button
-                className={formValue ? "submitbutton" : "invalidSubmitBtn"}
-                type="submit"
-                disabled={!formValue}
-              >
-                {loading ? (
-                  <l-dot-spinner
-                    size="22"
-                    speed="0.3"
-                    color="white"
-                  ></l-dot-spinner>
-                ) : (
-                  "Create New Account"
-                )}
-              </button>
             </form>
             <div className="loadingspiner">
               {error && <h1>{error?.error}</h1>}
@@ -203,7 +218,9 @@ function CreateAcc() {
             </div>
             <p>
               By creating an account, you agree to our Terms & Conditions and
+              <br />
               confirm that you are at least 18 years old or over and all
+              <br />
               information given is true.
             </p>
           </div>

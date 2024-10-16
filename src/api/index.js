@@ -97,4 +97,33 @@ export class AuthApis {
       return err;
     }
   }
+
+  async resetPassword(payload) {
+    try {
+      console.log("payload: " + payload);
+      const response = await axios.post(
+        `${BASE_URL}/yusuf_atlantis/api/v1/update/password/user`,
+        { email: payload }
+      );
+      console.log(response);
+      const result = await response.data;
+      return result;
+    } catch (error) {
+      console.log(error.message);
+      return error.response.data;
+    }
+  }
+
+  async updatePassword(payload, id, token) {
+    try {
+      const response = await axios.patch(
+        `${BASE_URL}/yusuf_atlantis/api/v1/reset/password/user/${id}/${token}`,
+        { password: payload }
+      );
+      return response.data;
+    } catch (err) {
+      console.log(err);
+      return err;
+    }
+  }
 }

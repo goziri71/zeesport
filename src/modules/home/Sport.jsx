@@ -17,9 +17,7 @@ function Sport() {
 
   return (
     <div>
-      <AppLayout>
-        <Hommee />
-      </AppLayout>
+      <AppLayout>{/* <Hommee /> */}</AppLayout>
     </div>
   );
 }
