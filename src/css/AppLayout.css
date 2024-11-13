@@ -10,7 +10,6 @@
 
 .layout3 {
     width: 100vw;
-    height: 100vh;
     /* max-height: calc(100% - 100px); */
     /* overflow: auto; */
     /* background-color: blueviolet; */
@@ -18,11 +17,11 @@
     grid-template-columns: 1fr;
     justify-content: center;
     align-items: center;
-    margin-top: 2.3em;
+    margin-top: 1.8em;
 }
 
 
-
+/* 
 @media (max-width: 1281px) {
     .layout3 {
         padding-top: 2.9em;
@@ -60,9 +59,9 @@
     }
 }
 
+*/
 @media (max-width: 730px) {
     .layout3 {
-        padding-top: 0px;
-        margin-top: -1em;
+        margin-top: 2.5em;
     }
 }

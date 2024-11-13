@@ -126,4 +126,25 @@ export class AuthApis {
       return err;
     }
   }
+
+  async getOdds(date, league) {
+    try {
+      const token = JSON.parse(localStorage.getItem("LT"));
+      const response = await axios.get(
+        `${BASE_URL}/yusuf_atlantis/api/v1/fixtures/games/odds/live?date=${date}&league=${league}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            private_key: "yniw9u17d3has3fpoglqj52k",
+            username: "jenomy79",
+          },
+        }
+      );
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
 }

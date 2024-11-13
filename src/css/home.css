@@ -1,23 +1,26 @@
 
 .pupolarcheck {
-    padding: 6.5em 1em 1em 1em;
+    padding: 2.3em 1em 1em 1em;
+    margin-top: 7em;
     display: flex;
     /* display: grid;
     grid-template-columns: 18% 30% 18%; */
     justify-content: center;
-    align-items: center;
     color: #fff;
     background-image: radial-gradient(circle at top right, rgb(3, 32, 78) 0%, rgb(253, 152, 2) 1%,rgb(72, 72, 72) 1%, rgba(148, 89, 0, 0.69) 10%,rgb(65, 65, 65) 10%, rgba(90, 54, 0, 0.667) 22%,rgb(59, 59, 59) 22%, rgba(174, 174, 174, 0.59) 23%,rgb(53, 53, 53) 23%, rgb(53, 53, 53) 28%,rgb(109, 100, 86) 28%, rgb(46, 46, 46) 37%,rgb(40, 40, 40) 37%, #005247 100%);
 }
 
 .populartext {
-    width: 15%;
-    font-size: calc(.7vw + .7vh);
+    max-width: 15vw;
+    min-width: 15vw;
+    /* font-size: calc(.7vw + .7vh); */
     margin-right: .7em;
+    
+    padding: .3em;
 }
 
 .populartext h2 {
-    font-size: calc(.9vw + .9vh);
+    font-size: calc(1.2w + 1.2vh);
     font-family: var(--font-family2);
     padding: 0em 0em 0.5em 0em;
 }
@@ -29,11 +32,11 @@
     padding: 0.5em 0.5em 0.5em 0em;
     cursor: pointer;
     font-weight: lighter;
-    font-size: calc(.6vw + .6vh);
+    /* font-size: calc(.6vw + .6vh); */
 }
 
 .todaysFotbalList li:hover {
-    background-color: #0000006f;
+    background-color: #073d50;
     transition: 500ms;
 }
 
@@ -57,6 +60,7 @@
     color: #00ff22;
     font-weight: bolder;
     font-family: var(--font-family2);
+    margin-bottom: 1em;
 }
 
 form {
@@ -88,18 +92,29 @@ form input{
     flex-direction: column;
 }
 
-.sportyphoto img {
-    margin-top: 0.5em;
-    width: 63%;
-    display: block;
+.sportyphoto {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
     margin-left: auto;
     margin-right: auto;
 }
 
-.pupolarstructure {
-    background-color: #c6c6c662;
+.sportyphoto img {
+    margin-top: 0.5em;
+    width: 65vw;
+    /* display: block;
+    margin-left: auto;
+    margin-right: auto; */
 }
 
+/* .pupolarstructure {
+    background-color: #95ff00;
+} */
+
+.sportpics {
+    min-width: 20vw;
+}
 
 .sportpics img {
     display: block;
@@ -108,7 +123,7 @@ form input{
 
 
 @media (max-width: 930px){
-    .pupolarcheck {
+    /* .pupolarcheck {
         padding: 3em;
     }
 
@@ -123,25 +138,49 @@ form input{
     .sportpics {
         display: flex;
         justify-content: center;
-    }
+    } */
 
     /* .sportpics img {
         display: none;
     } */
 }
-
+/* 
 @media (max-width: 854px){
      .sportpics img {
         display: none;
     }
 }
-
+*/
 @media (max-width: 730px){
     .pupolarcheck {
-        margin: 0px;
+        flex-wrap: wrap;
+        gap: 1em;
+    }
+
+    .populatext2 {
+        width: 90vw;
+        margin: 0;
+    }
+
+    .sportpics {
+        width: 90vw;
+        border-radius: 5px;
+    }
+
+    .populartext {
+        margin: 0;
+        min-width: 90vw;
+        border-radius: 5px;
+        background-color: #031b23;
+        padding: 1em;
+    }
+
+    .sportyphoto img {
+        width: 90vw;
     }
 }
 
+/*
 @media (max-width: 489px){
     .pupolarcheck {
         flex-direction: column;
@@ -182,4 +221,4 @@ form input{
         display: flex;
         justify-content: center;
     }
-}
+} */

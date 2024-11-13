@@ -92,13 +92,19 @@ function CreateAcc() {
       {openCreateAccount ? (
         <div className="registerCase">
           <div className="formCase">
-            <div>
-              <Icon
-                icon="mdi:cancel-bold"
-                width="1.2em"
-                height="1.2em"
-                style={{ color: "black" }}
-              />
+            <div className="icon_style">
+              <div
+                onClick={() => {
+                  setOpenCreateAccount(!openCreateAccount);
+                }}
+              >
+                <Icon
+                  icon="mdi:cancel-bold"
+                  width="1.2em"
+                  height="1.2em"
+                  style={{ color: "black" }}
+                />
+              </div>
             </div>
             <h4>Register</h4>
             <form onSubmit={handleSubmit}>

@@ -268,8 +268,10 @@ function Header() {
                   Login
                 </button>
               </div>
-              {(validUser.status == 400 ||
-                validUser.message == "Network Error") && <CreateAcc />}
+              <div>
+                {(validUser.status == 400 ||
+                  validUser.message == "Network Error") && <CreateAcc />}
+              </div>
             </div>
           </div>
         </div>

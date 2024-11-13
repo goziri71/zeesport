@@ -1,14 +1,14 @@
 import "../../css/BettingSlip.css";
-import React, { useContext } from "react";
-import { OddContext } from "../../context/oddContext";
+import React, { useEffect, useState } from "react";
 
 function BettingSlip({ awaysInfo }) {
-  const { data } = useContext(OddContext);
+  const [oddsValue, setOddsValue] = useState(null);
+
   return (
     <div className="bettingcase">
-      {data ? (
+      {oddsValue ? (
         <div className="betcase">
-          {data?.map((away, index) => {
+          {/* {data?.map((away, index) => {
             return (
               <div key={index}>
                 <div>
@@ -23,7 +23,7 @@ function BettingSlip({ awaysInfo }) {
                 </div>
               </div>
             );
-          })}
+          })} */}
           <div>
             Total:
             {Math.round(

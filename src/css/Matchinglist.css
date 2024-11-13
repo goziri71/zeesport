@@ -1,70 +1,98 @@
-/* .matchalign {
-    display: flex;
-    margin: 0.3em;
-    gap: 8em;
+.backcolortest {
+    margin-right: auto;
+    margin-left: auto;
+    width: 70%;
+}
+
+.leaguesdesign {
+    outline: solid 1px #323232;
+    font-size: calc(.8vw + .8vh);
     font-family: var(--font-family2);
 }
 
-.oddscase {
+.teamstyling {
+    text-align: left;
+    color: #e1e1e1;
+}
+
+.teamstyling tr td {
+    padding: .5em;
+    
+}
+
+.odd_style {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-right: .5em;
+}
+
+.odd_style td {
+    padding: .5em;
+    background-color: rgb(11, 73, 0);
+    margin: .05em;
+    margin-top: .5em;
+    cursor: pointer;
+}
+
+.odd_style td:nth-child(1) {
+    border-radius: 3px 0px 0px 3px;
+}
+
+.odd_style td:nth-child(3) {
+    border-radius: 0px 3px 3px 0px;
+}
+
+.typesOfLeague {
+    display: grid;
+    grid-template-columns: .4fr .4fr .4fr .4fr;
+    justify-content: center;
+    padding: .4em 3em;
+    margin: .5em;
+}
+
+.typesOfLeague botton:focus {
+    background-color: rgb(255, 0, 0);
+}
+
+.typesOfLeague botton:hover {
+    border: solid 1.6px #007b25;
+}
+
+.typesOfLeague botton:active {
+    background-color: rgba(32, 105, 0, 0.682);
+    border: none;
+}
+
+.typesOfLeague botton {
+    background-color: #1d1d1dc6;
+    text-align: center;
+    margin: .5em;
+    cursor: pointer;
+    padding: .6em;
+    border: solid .1px #7171712e;
+    font-size: calc(.9vw + .9vh);
+    font-family: var(--font-family2);
+    border-radius: 1px;
+}
+
+.loading_styling {
+    background-color: rgba(66, 66, 66, 0.497);
     display: flex;
+    min-height: 50vh;
     align-items: center;
-    gap: 0.1em;
-
+    justify-content: center;
 }
 
-.oddscase p {
-    background-color: #168700;
-    padding: 0.4em 1em 0.4em 1em;
-    border-radius: 2px;
+.leSnake { animation: leSnake 700ms ease-in-out; animation-iteration-count: infinite }
+@keyframes leSnake {
+    from, to { transform: translateY(0px) }
+    50% { transform: translateY(5px) }
 }
 
-.casing h5 {
-    padding: 0.7em;
-}
-
-.line {
-    width: 100%;
-    justify-content: right;
-    background-color: rgb(148, 148, 148);
-    height: 0.04px;
-}
-
-.blockdesign {
-    background-color: #028500;
-    width: 0.5em;
-    height: 1.5em;
-    justify-content: left;
-    align-self: center;
-} */
-
-.price {
-    display: flex;
-    gap: 0.3em;
-    background-color: brown;
-    padding: 0.5em;
-}
-
-.price td {
-    background-color: #028500;
-    padding: 0.5em;
-}
-
-.listBox {
+.no_mtach {
     display: flex;
     justify-content: center;
-    gap: 5em;
-}
-
-.frame {
-    background-color: rgb(239, 145, 22);
-}
-
-.market {
-    display: flex;
-    flex-direction: column;
-}
-
-.casing {
-    display: flex;
-    flex-direction: column;
+    min-height: 43vh;
+    align-items: center;
+    font-family: var(--font-family2);
 }

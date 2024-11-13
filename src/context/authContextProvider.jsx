@@ -1,5 +1,5 @@
 import React from "react";
-import { createContext, useEffect, useState, useMemo } from "react";
+import { createContext, useEffect, useState } from "react";
 import { AuthApis } from "../api";
 
 export const AuthContext = createContext();
@@ -18,6 +18,7 @@ function AuthContextProvider({ children }) {
 
   //   const validUser = useMemo(() => user, [user]);
   //console.log("memoize " + validUser);
+
   return (
     <AuthContext.Provider value={{ validUser }}>
       {children}

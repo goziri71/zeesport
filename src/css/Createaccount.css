@@ -4,13 +4,13 @@
     cursor: pointer;
     border-radius: 0px;
     border: 1px solid #fff;
-    padding: 0.6em 1em;
+    padding: 0.5em 1em;
     margin-left: 5px;
     margin-top: 0.75em;
     font-family: var(--font-family2);
 }
 
-/* .registerCase {
+.registerCase {
     position: absolute;
     top: 0;
     left: 0;
@@ -20,7 +20,7 @@
     justify-content: center;
     align-items: center;
     background-color: #000000a8;
-} */
+}
 
 .formCase {
     font-family: var(--font-family2);
@@ -55,45 +55,36 @@
 .submitbutton {
     background-color: #36b500;
     color: #ffffff;
-    padding: 0.7em 0em;
     border: 0;
     border-radius: 2px;
     font-family: var(--font-family2);
     cursor: pointer;
-    font-size: 1rem;
-    margin-top: 10px;
+    font-size: .9rem;
 }
 
 .invalidSubmitBtn {
     cursor: not-allowed;
     background-color: #aaaaaa;
     color: #ffffff;
-    padding: 0.7em 0em;
     border: 0;
     border-radius: 2px;
     font-family: var(--font-family2);
-    font-size: 1rem;
-    margin-top: 10px;
+    font-size: .9rem;
 }
 
 .registerCase p {
     font-size: 0.6rem;
     text-align: center;
-    margin-top: 4em;
-    margin-bottom: -4em;
+    margin-top: 2em;
 }
 
 .formFlex div {
     display: flex;
-    flex-direction: row;
-    background-color: #ff0000;
 }
 
 .dobcase {
-    align-self: center;
-    background-color: #f49431;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .formCase h4 {
@@ -117,15 +108,29 @@
     font-size: 0.7rem;
 }
 
+.icon_style {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -1em;
+    cursor: pointer;
+}
+
+.dobcase button {
+    padding: .5em;
+    margin-left: .2em;
+}
 
 
 
 
 
-/* @media (max-width: 863px){
+@media (max-width: 730px){
 
-    .registerButton {
-        padding: .5em .8em;
-        margin-top: .7em;
+    .registerCase {
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        left: -.92em;
     }
-} */
+}

@@ -3,121 +3,121 @@ import React, { useContext } from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { OddContext } from "../../context/oddContext";
+import { AuthApis } from "../../api";
+
+const oddsApi = new AuthApis();
 
 function MatchList() {
-  const [views, setView] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [awayDetails, setAwayDetails] = useState([]);
-  const { setData } = useContext(OddContext);
+  const [error, setError] = useState(null);
+  const [oddsValue, setOddsValue] = useState(null);
+  const [league, setLeague] = useState("EPL");
+  const [loading, setLoading] = useState(true);
+  const [date, setDate] = useState(new Date());
 
-  const handleshowvalue = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get(
-        "https://api.the-odds-api.com/v4/sports/soccer_epl/odds?apiKey=a3dfc1b147e485f0d7f7302a472c6af4&regions=us"
-      );
+  const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  useEffect(() => {
+    (async () => {
+      const formattedDate = formatDate(date);
+      const response = await oddsApi.getOdds(formattedDate, league);
       if (response.data) {
-        setView(
-          response.data.map((view) => {
-            return {
-              ...view,
-              bookmarker: view.bookmakers.filter((k) => k.key === "fanduel")[0],
-            };
-          })
-        );
+        setLoading(false);
       }
-    } catch (error) {
-      console.error("this is the error", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+      setOddsValue(response.data);
+    })();
+  }, [league, date]);
 
-  // useEffect(() => {
-  //   handleshowvalue();
-  // }, []);
-
-  const handleAway = (e) => {
-    let collective_selections = [...awayDetails];
-    const existingIndex = collective_selections.findIndex(
-      (item) => item.event_id === e.event_id && item.selected === e.selected
-    );
-    if (existingIndex >= 0) {
-      collective_selections.splice(existingIndex, 1);
-    } else {
-      collective_selections.unshift(e);
-    }
-    setAwayDetails(collective_selections);
-    setData(collective_selections);
-    localStorage.setItem("games", JSON.stringify(awayDetails));
-  };
+  console.log(oddsValue);
 
   return (
     <>
+      <div className="typesOfLeague">
+        <botton
+          onClick={() => {
+            setLeague("EPL");
+          }}
+        >
+          Epl
+        </botton>
+        <botton
+          onClick={() => {
+            setLeague("LALIGA");
+          }}
+        >
+          Laliga
+        </botton>
+        <botton
+          onClick={() => {
+            setLeague("SERIA-A");
+          }}
+        >
+          Seria-a
+        </botton>
+        <botton
+          onClick={() => {
+            setLeague("BUNDESLIGA");
+          }}
+        >
+          Bundesliga
+        </botton>
+      </div>
+
       {loading ? (
-        <p>Loading...</p>
+        <div className="loading_styling">
+          <div class="cssanimation leSnake sequence">Loading...</div>
+        </div>
       ) : (
-        <table className="casing">
-          {views.map((view, index) => (
-            <tr key={index}>
-              <td className="frame">
-                <h4>Markets:</h4>
-                {view.bookmarker.markets.map((market, marketIndex) => (
-                  <td className="listBox" key={marketIndex}>
-                    <td className="market">
-                      <td>{market.outcomes[0].name}</td>
-                      {/* <p>{market.outcomes[2].name}</p> */}
-                      <td>{market.outcomes[1].name}</td>
-                    </td>
-                    <td className="price">
-                      <button
-                        onClick={() => {
-                          handleAway({
-                            event_id: view.id,
-                            home: view.home_team,
-                            away: view.away_team,
-                            selected: "away",
-                            odds: market.outcomes[0].price,
-                          });
-                        }}
-                      >
-                        {market.outcomes[0].price}
-                      </button>
+        <>
+          {oddsValue?.length === 0 ? (
+            <div className="no_mtach">
+              <h4>SORRY NO MATCH FOR TODAY!</h4>
+            </div>
+          ) : (
+            <table className="backcolortest">
+              {oddsValue?.map((item, id) => (
+                <>
+                  <tbody className="teamstyling" key={id}>
+                    <tr key={item._id} className="leaguesdesign">
+                      <td>
+                        {item.homeTeam}
+                        <br /> {item.awayTeam}
+                      </td>
 
-                      <button
-                        onClick={() => {
-                          handleAway({
-                            event_id: view.id,
-                            home: view.home_team,
-                            away: view.away_team,
-                            selected: "draw",
-                            odds: market.outcomes[2].price,
-                          });
-                        }}
-                      >
-                        {market.outcomes[2].price}
-                      </button>
-
-                      <button
-                        onClick={() => {
-                          handleAway({
-                            event_id: view.id,
-                            home: view.home_team,
-                            away: view.away_team,
-                            selected: "home",
-                            odds: market.outcomes[1].price,
-                          });
-                        }}
-                      >
-                        {market.outcomes[1].price}
-                      </button>
-                    </td>
-                  </td>
-                ))}
-              </td>
-            </tr>
-          ))}
-        </table>
+                      <div className="odd_style">
+                        <td
+                          onClick={() => {
+                            console.log("clicked");
+                          }}
+                        >
+                          {item.odds.homeWin}
+                        </td>
+                        <td
+                          onClick={() => {
+                            console.log("clicked " + item.odds);
+                          }}
+                        >
+                          {item.odds.straightDraw}
+                        </td>
+                        <td
+                          onClick={() => {
+                            console.log("clicked");
+                          }}
+                        >
+                          {item.odds.awayWin}
+                        </td>
+                      </div>
+                    </tr>
+                  </tbody>
+                </>
+              ))}
+            </table>
+          )}
+        </>
       )}
     </>
   );
