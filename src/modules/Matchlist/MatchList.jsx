@@ -75,7 +75,11 @@ function MatchList() {
         <>
           {oddsValue?.length === 0 ? (
             <div className="no_mtach">
-              <h4>SORRY NO MATCH FOR TODAY!</h4>
+              <h4>
+                Sorry, there are no games currently available in this category.
+                <br />
+                Please try later. Thank you.
+              </h4>
             </div>
           ) : (
             <table className="backcolortest">
