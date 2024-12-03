@@ -1,75 +1,120 @@
 import "../../css/Matchinglist.css";
-import React, { useContext } from "react";
-import axios from "axios";
-import { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { OddContext } from "../../context/oddContext";
 import { AuthApis } from "../../api";
 
 const oddsApi = new AuthApis();
 
 function MatchList() {
-  const [error, setError] = useState(null);
-  const [oddsValue, setOddsValue] = useState(null);
-  const [league, setLeague] = useState("EPL");
-  const [loading, setLoading] = useState(true);
-  const [date, setDate] = useState(new Date());
-
-  const formatDate = (date) => {
+  const getCurrentDate = () => {
+    const date = new Date();
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const day = String(date.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   };
 
+  const [error, setError] = useState(null);
+  const [oddsValue, setOddsValue] = useState(null);
+  const [league, setLeague] = useState("EPL");
+  const [loading, setLoading] = useState(true);
+  const [date, setDate] = useState(getCurrentDate());
+  const [addedOddsValue, setAddedOddsValue] = useState([]);
+  const [totalOdds, setTotalOdds] = useState(0);
+  const [oddscontext, setOddscontext] = useState([]);
+  const { setOdds, Odds, setTeams, Teams } = useContext(OddContext);
+
+  const addGames = (value) => {
+    const currentOddsContext = Teams || [];
+    const currentAddedOddsValue = addedOddsValue || [];
+
+    const existingContextIndex = currentOddsContext.findIndex(
+      (item) => item.fixtureId === value.fixtureId
+    );
+
+    let newOddsContext;
+    if (existingContextIndex !== -1) {
+      newOddsContext = [...currentOddsContext];
+      newOddsContext[existingContextIndex] = value;
+    } else {
+      newOddsContext = [...currentOddsContext, value];
+    }
+
+    setTeams(newOddsContext);
+    setOddscontext(newOddsContext);
+
+    const existingMatchIndex = currentAddedOddsValue.findIndex(
+      (item) => item.fixtureId === value.fixtureId
+    );
+
+    let updatedOdds;
+    if (existingMatchIndex !== -1) {
+      updatedOdds = [...currentAddedOddsValue];
+      updatedOdds[existingMatchIndex] = value;
+    } else {
+      updatedOdds = [...currentAddedOddsValue, value];
+    }
+
+    setAddedOddsValue(updatedOdds);
+    const total = updatedOdds.reduce((sum, obj) => sum + (obj.odd || 0), 0);
+    setOdds(total);
+    setTotalOdds(total);
+  };
+
   useEffect(() => {
-    (async () => {
-      const formattedDate = formatDate(date);
-      const response = await oddsApi.getOdds(formattedDate, league);
-      if (response.data) {
+    oddsApi.handleOfflineSingle();
+    const fetchOdds = async () => {
+      try {
+        const response = await oddsApi.getOdds(date, league);
+        if (response.data) {
+          setOddsValue(response.data);
+        }
+      } catch (err) {
+        setError(err.message);
+      } finally {
         setLoading(false);
       }
-      setOddsValue(response.data);
-    })();
-  }, [league, date]);
+    };
 
-  console.log(oddsValue);
+    fetchOdds();
+  }, [league, date]);
 
   return (
     <>
       <div className="typesOfLeague">
-        <botton
+        <button
           onClick={() => {
             setLeague("EPL");
           }}
         >
           Epl
-        </botton>
-        <botton
+        </button>
+        <button
           onClick={() => {
             setLeague("LALIGA");
           }}
         >
           Laliga
-        </botton>
-        <botton
+        </button>
+        <button
           onClick={() => {
             setLeague("SERIA-A");
           }}
         >
           Seria-a
-        </botton>
-        <botton
+        </button>
+        <button
           onClick={() => {
             setLeague("BUNDESLIGA");
           }}
         >
           Bundesliga
-        </botton>
+        </button>
       </div>
 
       {loading ? (
         <div className="loading_styling">
-          <div class="cssanimation leSnake sequence">Loading...</div>
+          <div className="cssanimation leSnake sequence">Loading...</div>
         </div>
       ) : (
         <>
@@ -85,8 +130,8 @@ function MatchList() {
             <table className="backcolortest">
               {oddsValue?.map((item, id) => (
                 <>
-                  <tbody className="teamstyling" key={id}>
-                    <tr key={item._id} className="leaguesdesign">
+                  <tbody className="teamstyling" key={`${item._id}-${id}`}>
+                    <tr className="leaguesdesign">
                       <td>
                         {item.homeTeam}
                         <br /> {item.awayTeam}
@@ -94,23 +139,43 @@ function MatchList() {
 
                       <div className="odd_style">
                         <td
-                          onClick={() => {
-                            console.log("clicked");
-                          }}
+                          onClick={() =>
+                            addGames({
+                              fixtureId: item._id,
+                              _id: `${item._id}-home`,
+                              odd: item.odds.homeWin,
+                              selection: "Home Win",
+                              team: `${item.homeTeam} - ${item.awayTeam}`,
+                            })
+                          }
                         >
                           {item.odds.homeWin}
                         </td>
+
                         <td
-                          onClick={() => {
-                            console.log("clicked " + item.odds);
-                          }}
+                          onClick={() =>
+                            addGames({
+                              fixtureId: item._id,
+                              _id: `${item._id}-draw`,
+                              odd: item.odds.straightDraw,
+                              selection: "Draw",
+                              team: `${item.homeTeam} - ${item.awayTeam}`,
+                            })
+                          }
                         >
                           {item.odds.straightDraw}
                         </td>
+
                         <td
-                          onClick={() => {
-                            console.log("clicked");
-                          }}
+                          onClick={() =>
+                            addGames({
+                              fixtureId: item._id,
+                              _id: `${item._id}-away`,
+                              odd: item.odds.awayWin,
+                              selection: "Away Win",
+                              team: `${item.homeTeam} - ${item.awayTeam}`,
+                            })
+                          }
                         >
                           {item.odds.awayWin}
                         </td>

@@ -147,4 +147,43 @@ export class AuthApis {
       return error;
     }
   }
+
+  async handleOfflineSingle(data) {
+    try {
+      const { fixtureId, selection, games, odd, stake } = data;
+      const response = await axios.post(
+        `${BASE_URL}/yusuf_atlantis/api/v1/book-bet/offline`,
+        {
+          fixtureId,
+          selection,
+          games,
+          stake,
+          odd,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(response.data);
+      const res = await response.data;
+      return res;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
+
+  async handleBookingCode(bookingCode) {
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/yusuf_atlantis/api/v1/game/ticketId/offline`,
+        { bookingId: bookingCode }
+      );
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.log(`Booking Offline error Message ${error}`);
+      return error;
+    }
+  }
 }

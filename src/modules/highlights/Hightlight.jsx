@@ -43,7 +43,7 @@ function Hightlight() {
         </div>
 
         <div className="bettingwidth">
-          <BettingSlip awaysInfo={BettingSlip} />
+          <BettingSlip />
         </div>
       </div>
     </div>

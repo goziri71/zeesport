@@ -5,11 +5,6 @@
     padding: 0.4em;
 }
 
-.betcase {
-    width: 100%;
-    background-color: aqua;
-}
-
 .betslipcashout {
     display: flex;
     justify-content: center;
@@ -31,10 +26,17 @@
 .oddsbet {
     background-color: #fff;
     padding: 0.5em;
+    /* display: none; */
+}
+
+.hidBetSlip {
+    background-color: #fff;
+    padding: 0.5em;
+    display: none;
 }
 
 .oddsbet div {
-    padding-top: 1.3em;
+    padding-top: 1em;
 }
 
 .oddsbet select {
@@ -58,19 +60,280 @@
     border-radius: 0px;
 }
 
-.oddsbet button {
+.oddsbet button:disabled {
     padding: 0.7em;
     border: none;
     margin-bottom: 0.7em;
-    background-color: #6c6c6c;
+    background-color: #5b5b5b;
     color: #fff;
     font-family: var(--font-family2);
     font-size: 1rem;
+    opacity: 0.5;
+    cursor: not-allowed;
 }
+
+.button-enabled {
+    padding: 0.7em;
+    border: none;
+    margin-bottom: 0.7em;
+    background-color: rgb(42, 165, 63);
+    color: #fff;
+    font-family: var(--font-family2);
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
 
 .oddsbet p {
     color: #676767;
 }
 
 
+.gamestyle {
+    background-color: #f1f1f1;
+    color: #000000;
+    font-family: var(--font-family2);
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: .2em;
+}
 
+.gamestyle div{
+    padding: .3em;
+}
+
+.gamesbutton {
+    text-transform: uppercase;
+    font-weight: bolder;
+    font-size: .5em;
+}
+
+.betcase p {
+    cursor: pointer;
+    margin: .2em;
+    font-size: calc(.4em + .4em);
+}
+
+
+.btnstyle {
+    cursor: pointer;
+}
+
+.btnstyle:hover {
+    background-color: rgb(42, 165, 63);
+    color: #fff;
+}
+
+.valueinput {
+    padding: .3em;
+    width: 50%;
+    border-radius: 2px;
+    border: .1px solid #9f9f9f;
+    background-color: #00000000;
+    color: #fff;
+}
+
+
+.totalstake {
+    display: flex;
+    justify-content: space-between;
+    padding: 0em .3em 0em .3em;
+    align-items: center;
+    font-family: var(--font-family2);
+    font-size: .8rem;
+}
+
+.potentialwin {
+    font-family: var(--font-family2);
+    font-size: 1.2rem;
+    padding: .4em 0em .4em 0em;
+    display: flex;
+    justify-content: space-between;
+}
+
+.winAmount {
+    color: rgb(23, 241, 59);
+}
+
+.aboutopay {
+    background-color: brown;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.modal-overlay {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+  }
+  
+  .modal-content {
+    font-family: var(--font-family2);
+    background: white;
+    padding: 2em;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+    animation: slideIn 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+  }
+
+  .winbuttin button {
+    margin: 0em .3em 0em .3em;
+  }
+  
+  .modal-content h3 {
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 18px;
+    padding: .5em;
+  }
+  
+  .winnings-display {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: start;
+    margin-top: .7em;
+  }
+  
+  .winnings-display .amount {
+    color: #000000;
+    font-size: 20px;
+  }
+  
+  .winnings-display .totalWining {
+    font-size: 20px;
+    font-weight: bolder;
+    color: rgb(42, 165, 63);
+    text-align: center;
+  }
+
+  .winnings-display .stake-info {
+    font-size: 17px;
+  }
+  
+  .modal-overlay > div:last-child {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+  }
+  
+  .modal-overlay button {
+    font-family: var(--font-family2);
+    padding: 6px 25px;
+    border-radius: 2px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+  
+  .modal-overlay button:first-child {
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    color: #666;
+  }
+  
+  .modal-overlay button:last-child {
+    background: #28a745;
+    color: white;
+  }
+  
+  .modal-overlay button:hover {
+    opacity: 0.9;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideIn {
+    from {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+.succestyle {
+    display: flex;
+    margin: .2em;
+    padding: .1em 0em .1em 0em;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100%;
+    min-width: 20vw;
+    width: 100%;
+}
+
+.succebtn button {
+    font-size: 1rem;
+    padding: .2em 1em .2em 1em;
+    width: 100%;
+    min-width: 7em;
+}
+
+.bookingcode {
+    font-weight: bolder;
+    font-size: 4rem;
+    letter-spacing: 1.4px;
+}
+
+.clearallgames {
+    background-color: #ff6f00;
+    font-family: var(--font-family2);
+    float: right;
+    color: #fff;
+    padding: .1em .3em .1em .3em;
+    border: none;
+    border-radius: 2px;
+    margin-bottom: .5em;
+    cursor: pointer;
+}
+
+.clearallgames-invalid {
+    display: none;
+}

@@ -11,13 +11,9 @@ function AuthContextProvider({ children }) {
   useEffect(() => {
     (async () => {
       const response = await authApis.authenticator();
-      console.log(response.user);
       setValidUser(response);
     })();
   }, []);
-
-  //   const validUser = useMemo(() => user, [user]);
-  //console.log("memoize " + validUser);
 
   return (
     <AuthContext.Provider value={{ validUser }}>

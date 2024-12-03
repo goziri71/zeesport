@@ -105,10 +105,7 @@ function Header() {
         <div className="header">
           <Link to="/">
             <div className="headerText">
-              {/* <h1>ZeeSport</h1>
-              <img src={image1} alt="this is the nigeria flag" />
-              <p>Nigeria</p> */}
-              <img src={image1} alt="this is zee sporty logo" />
+              <img src={image1} alt="this is zee sport logo" />
             </div>
           </Link>
 
@@ -116,7 +113,7 @@ function Header() {
             <div className="usernamestyle">
               <div>
                 {validUser.success ? (
-                  <h5>{validUser?.user.firstname}</h5>
+                  <h5>{validUser?.user.firstname.slice(0, 2)}</h5>
                 ) : null}
               </div>
               {validUser.user && (

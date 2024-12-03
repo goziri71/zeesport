@@ -50,21 +50,22 @@
     margin: .5em;
 }
 
-.typesOfLeague botton:focus {
+.typesOfLeague button:focus {
     background-color: rgb(255, 0, 0);
 }
 
-.typesOfLeague botton:hover {
+.typesOfLeague button:hover {
     border: solid 1.6px #007b25;
 }
 
-.typesOfLeague botton:active {
+.typesOfLeague button:active {
     background-color: rgba(32, 105, 0, 0.682);
     border: none;
 }
 
-.typesOfLeague botton {
+.typesOfLeague button {
     background-color: #1d1d1dc6;
+    color: #fff;
     text-align: center;
     margin: .5em;
     cursor: pointer;

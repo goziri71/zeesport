@@ -187,17 +187,19 @@
 }
 
 .usernamestyle h5 {
+    font-family: var(--font-family2);
     text-transform: uppercase;
-    font-size: .7rem;
+    color: var(--primary-color);
+    font-size: .9rem;
     border: none;
     padding: .4em;
-    background-color: #f49431;
-    border-radius: 5px;
+    background-color: #ffffff;
+    border-radius: 100%;
 }
 
 .usernamestyle button {
-    background-color: #f49431;
-    color: #ffffff;
+    background-color: #ffffff;
+    color: var(--primary-color);
     font-size: .7rem;
     padding: .4em;
     border: none;
