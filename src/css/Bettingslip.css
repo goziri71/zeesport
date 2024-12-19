@@ -64,11 +64,10 @@
     padding: 0.7em;
     border: none;
     margin-bottom: 0.7em;
-    background-color: #5b5b5b;
+    background-color: #5b5b5b8a;
     color: #fff;
     font-family: var(--font-family2);
     font-size: 1rem;
-    opacity: 0.5;
     cursor: not-allowed;
 }
 
@@ -163,18 +162,6 @@
     justify-content: center;
     align-items: center;
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 .modal-overlay {
@@ -337,3 +324,16 @@
 .clearallgames-invalid {
     display: none;
 }
+
+.bookingcodestyle {
+    background-color: #ffffff;
+    margin-top: .2em;
+    padding: .3em;
+    font-family: var(--font-family2);
+    font-size: .9rem;
+    color: #000000;
+}
+
+/* .bookingcodestyle p {
+    background-color: #28a745;
+} */

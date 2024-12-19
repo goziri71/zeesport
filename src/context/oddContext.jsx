@@ -5,32 +5,119 @@ export const OddContext = createContext();
 function OddContextProvider({ children }) {
   const [Odds, setOdds] = useState(null);
   const [Teams, setTeams] = useState(null);
+  const [bookingCodeFixtures, setBookingCodeFixtures] = useState(null);
 
-  const handleRemoveGame = (fixtureId) => {
-    if (!Teams || Teams.length === 0) {
+  console.log(bookingCodeFixtures);
+
+  // Existing calculations
+  const calculateTotalOdds = (games) => {
+    if (!games || games.length === 0) return 0;
+    return games.reduce((total, game) => total * parseFloat(game.odd), 1);
+  };
+
+  const updateBookingWithCalculations = (games, stake = 0) => {
+    const newOdds = calculateTotalOdds(games);
+    const newBonus = newOdds > 5 ? 0.05 * newOdds : 0;
+    const newWinningAmount = (newOdds + newBonus) * stake;
+
+    return {
+      games,
+      odds: newOdds,
+      bonus: newBonus,
+      winningAmount: newWinningAmount,
+      stake,
+    };
+  };
+
+  // Rest of your existing code remains exactly the same
+  const handleSetBookingFixtures = (fixtureData) => {
+    if (!fixtureData?.games?.length) {
+      setBookingCodeFixtures(null);
+      setOdds(0);
+      setTeams(null);
       return;
     }
+
+    const updatedFixture = updateBookingWithCalculations(
+      fixtureData.games,
+      fixtureData.stake
+    );
+    setBookingCodeFixtures({ ...fixtureData, ...updatedFixture });
+    setTeams(null);
+    setOdds(updatedFixture.odds);
+  };
+
+  const handleRemoveGame = (fixtureId) => {
+    if (!Teams?.length) return;
+
     const newTeams = Teams.filter((team) => team.fixtureId !== fixtureId);
     setTeams(newTeams);
-    if (newTeams.length > 0) {
-      const newTotalOdds = newTeams.reduce(
-        (total, team) => total * parseFloat(team.odd),
-        1
-      );
-      setOdds(newTotalOdds);
-    } else {
+    setOdds(newTeams.length ? calculateTotalOdds(newTeams) : 0);
+  };
+
+  const handleRemoveBookingGame = (fixtureId) => {
+    if (!bookingCodeFixtures?.games?.length) return;
+    const updatedGames = bookingCodeFixtures.games.filter(
+      (game) => game.fixtureId !== fixtureId
+    );
+    if (!updatedGames.length) {
+      setBookingCodeFixtures(null);
       setOdds(0);
+      return;
     }
+    const updatedFixture = updateBookingWithCalculations(
+      updatedGames,
+      bookingCodeFixtures.stake
+    );
+    setBookingCodeFixtures({ ...bookingCodeFixtures, ...updatedFixture });
+    setOdds(updatedFixture.odds);
+  };
+
+  const handleAddGameToBooking = (newGame) => {
+    const newGameData = {
+      fixtureId: newGame.fixtureId,
+      selection: newGame.selection,
+      odd: parseFloat(newGame.odd),
+      fixture: {
+        homeTeam: newGame.team.split(" vs ")[0],
+        awayTeam: newGame.team.split(" vs ")[1],
+      },
+    };
+    if (
+      bookingCodeFixtures?.games?.some(
+        (game) => game.fixtureId === newGame.fixtureId
+      )
+    ) {
+      return;
+    }
+    const updatedGames = bookingCodeFixtures?.games
+      ? [...bookingCodeFixtures.games, newGameData]
+      : [newGameData];
+    const updatedFixture = updateBookingWithCalculations(
+      updatedGames,
+      bookingCodeFixtures?.stake || 0
+    );
+    setBookingCodeFixtures({
+      ...(bookingCodeFixtures || {}),
+      ...updatedFixture,
+    });
+    setOdds(updatedFixture.odds);
   };
 
   return (
     <OddContext.Provider
       value={{
-        setOdds,
         Odds,
-        setTeams,
+        setOdds,
         Teams,
+        setTeams,
         handleRemoveGame,
+        handleRemoveBookingGame,
+        handleAddGameToBooking,
+        setBookingCodeFixtures,
+        handleSetBookingFixtures,
+        bookingCodeFixtures,
+        updateBookingWithCalculations,
       }}
     >
       {children}

@@ -18,11 +18,13 @@ function MatchList() {
   const [oddsValue, setOddsValue] = useState(null);
   const [league, setLeague] = useState("EPL");
   const [loading, setLoading] = useState(true);
-  const [date, setDate] = useState(getCurrentDate());
+  const [date, setDate] = useState("2024-12-03");
   const [addedOddsValue, setAddedOddsValue] = useState([]);
   const [totalOdds, setTotalOdds] = useState(0);
   const [oddscontext, setOddscontext] = useState([]);
   const { setOdds, Odds, setTeams, Teams } = useContext(OddContext);
+
+  console.log(Teams);
 
   const addGames = (value) => {
     const currentOddsContext = Teams || [];

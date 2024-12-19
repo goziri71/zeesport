@@ -7,53 +7,111 @@ import { Icon } from "@iconify/react";
 const apiValues = new AuthApis();
 
 function BettingSlip() {
-  const { setOdds, Odds, setTeams, Teams, handleRemoveGame } =
-    useContext(OddContext);
+  const {
+    setOdds,
+    Odds,
+    setTeams,
+    Teams,
+    handleRemoveGame,
+    handleRemoveBookingGame,
+    setBookingCodeFixtures,
+    bookingCodeFixtures,
+    updateBookingWithCalculations,
+  } = useContext(OddContext);
+
   const [stake, setStake] = useState(100);
   const [newGames, setNewGames] = useState([]);
-  const [showPotentialWin, setShowPotentialWin] = useState(null);
+  const [showPotentialWin, setShowPotentialWin] = useState(true);
   const [responseValue, setResponseValue] = useState(null);
   const [succesfulPlayedGames, setSuccesfulPlayedGames] = useState(null);
-  const [BookingCode, setBookingCode] = useState(null);
+  const [BookingCode, setBookingCode] = useState("");
   const [bookingResquestValue, setBookingRequestValue] = useState(null);
   const [confirmRequest, setConfirmRequest] = useState(null);
   const [error, setError] = useState(null);
+
+  console.log(updateBookingWithCalculations());
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setResponseValue(true);
     try {
-      if (Teams.length === 1) {
-        const { fixtureId, selection, odd } = Teams[0];
-        setNewGames({ fixtureId: toString(fixtureId), selection, odd, stake });
-        const value = await apiValues.handleOfflineSingle({
+      // Combine games from both bookingCodeFixtures and Teams if they exist
+      let allGames = [];
+      console.log(allGames);
+
+      // Add games from bookingCodeFixtures if they exist
+      if (bookingCodeFixtures?.games?.length) {
+        const bookingGames = bookingCodeFixtures.games.map((game) => ({
+          selection: game.selection,
+          fixtureId: game.fixtureId,
+          odd: game.odd,
+        }));
+        allGames = [...allGames, ...bookingGames];
+      }
+
+      // Add games from Teams if they exist
+      if (Teams?.length) {
+        const teamGames = Teams.map((team) => ({
+          fixtureId: team.fixtureId,
+          selection: team.selection,
+          odd: team.odd,
+        }));
+        allGames = [...allGames, ...teamGames];
+      }
+
+      // Handle submission based on total number of games
+      if (allGames.length === 0) {
+        setError("No games selected");
+        return;
+      }
+
+      let value;
+      if (allGames.length === 1) {
+        // Single game submission
+        const { fixtureId, selection, odd } = allGames[0];
+        value = await apiValues.handleOfflineSingle({
           fixtureId,
           selection,
           stake,
           odd,
         });
-        setResponseValue(value);
-        setShowPotentialWin(!showPotentialWin);
-        setSuccesfulPlayedGames(true);
-      } else if (Teams.length > 1) {
-        const multipleGames = Teams.map((team) => ({
-          fixtureId: team.fixtureId,
-          selection: team.selection,
-          odd: team.odd,
-        }));
-        setNewGames({
-          games: multipleGames,
+      } else {
+        // Multiple games submission
+        value = await apiValues.handleOfflineSingle({
+          games: allGames,
           stake,
         });
-        const value = await apiValues.handleOfflineSingle({
-          games: multipleGames,
-          stake,
-        });
-        setSuccesfulPlayedGames(true);
-        setResponseValue(value);
       }
+
+      // Update state with response
+      setResponseValue(value);
+      setShowPotentialWin(null);
+      setSuccesfulPlayedGames(true);
     } catch (error) {
       console.error("Error processing games:", error);
+      setError("Failed to process bet. Please try again.");
+    }
+  };
+
+  // Handle booking code submission and validation
+  const handleBookingSubmit = async (event) => {
+    event.preventDefault();
+    setConfirmRequest(true);
+    setError(null);
+
+    try {
+      const value = await apiValues.handleBookingCode(BookingCode);
+      if (value.success) {
+        setBookingCodeFixtures(value.game);
+        setBookingRequestValue(!bookingResquestValue);
+        setShowPotentialWin(true);
+      } else {
+        setError(value.response?.data?.error || "Invalid booking code");
+      }
+    } catch (error) {
+      setError("Failed to load booking code");
+    } finally {
+      setConfirmRequest(false);
     }
   };
 
@@ -68,22 +126,6 @@ function BettingSlip() {
     setBookingCode(event.target.value);
   };
 
-  const handleBookingSubmit = async (event) => {
-    setConfirmRequest(!confirmRequest);
-    event.preventDefault();
-    setError(null);
-    const value = await apiValues.handleBookingCode(BookingCode);
-    setConfirmRequest(null);
-    if (value.success) {
-      setConfirmRequest(false);
-      setBookingRequestValue(true);
-    } else {
-      setConfirmRequest(false);
-      setError(value.response.data.error);
-    }
-    setConfirmRequest(false);
-  };
-
   const formatAmount = (amount) => {
     const number = parseFloat(amount || 0).toFixed(2);
     const [wholeNum, decimal] = number.toString().split(".");
@@ -91,19 +133,33 @@ function BettingSlip() {
     return `${withCommas}.${decimal}`;
   };
 
+  console.log(stake);
+  console.log(Odds);
   const calculatePotentialWin = () => {
     if (!Odds || !stake) return "0.00";
     return formatAmount(parseFloat(Odds) * parseFloat(stake));
   };
 
+  useEffect(() => {
+    // If there are no teams selected, reset odds to null
+    if (!Teams?.length && !bookingCodeFixtures?.games?.length) {
+      setOdds(null);
+    }
+  }, [Teams, bookingCodeFixtures]);
+
   const handleClearGames = () => {
-    setOdds(null);
+    setOdds(null); // Explicitly reset odds first
     setTeams(null);
-    setStake(100);
-    setShowPotentialWin(null);
+    setBookingCodeFixtures(null);
+
+    // Then reset local state
+    setStake(DEFAULT_STAKE);
+    setShowPotentialWin(true);
     setResponseValue(null);
     setSuccesfulPlayedGames(null);
-    setNewGames([]);
+    setBookingRequestValue(null);
+    setBookingCode("");
+    setError(null);
   };
 
   return (
@@ -143,32 +199,9 @@ function BettingSlip() {
               </div>
             );
           })}
-          <div>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                setShowPotentialWin(!showPotentialWin);
-              }}
-            >
-              <div className="totalstake">
-                <label>Total Stake</label>
-                <input
-                  className="valueinput"
-                  type="number"
-                  value={stake}
-                  placeholder="min. 10"
-                  onChange={handleBetting}
-                />
-              </div>
-              <div className="potentialwin">
-                <p>Potential Win:</p>
-                <p className="winAmount">{`₦${calculatePotentialWin()}`}</p>
-              </div>
-              <input className="btnstyle" type="submit" value="Place Bet" />
-            </form>
-          </div>
+          <div></div>
 
-          {showPotentialWin && (
+          {!showPotentialWin && (
             <div className="modalstyloing">
               <div className="modal-overlay">
                 <div className="modal-content">
@@ -295,19 +328,97 @@ function BettingSlip() {
       <div>
         {bookingResquestValue && (
           <div>
-            <button
-              onClick={() => {
-                setBookingRequestValue(null);
-                setBookingCode("");
-                setError(null);
-              }}
-            >
-              remove all
-            </button>
-            <p>List of Games</p>
+            <div>
+              {bookingCodeFixtures?.games?.length > 1 ? (
+                bookingCodeFixtures?.games?.map((gameList) => (
+                  <div key={gameList.id} className="bookingcodestyle">
+                    <div
+                      onClick={() => {
+                        handleRemoveBookingGame(gameList.fixtureId);
+                      }}
+                    >
+                      X
+                    </div>
+                    <div>
+                      <p>{`${gameList.selection} @${gameList.odd}`}</p>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <p>
+                        {gameList.fixture.homeTeam} vs{" "}
+                        {gameList.fixture.awayTeam}{" "}
+                      </p>
+                      <Icon icon="mingcute:time-line" width="15" />
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div>
+                  <>
+                    <div
+                      onClick={() => {
+                        handleRemoveBookingGame(
+                          bookingCodeFixtures.game.games[0].fixtureId
+                        );
+                      }}
+                    >
+                      X
+                    </div>
+                    <div>
+                      <p>{`${bookingCodeFixtures.games[0].selection} @${bookingCodeFixtures.games[0].odd}`}</p>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <p>
+                        {bookingCodeFixtures.games[0].fixture?.homeTeam} vs{" "}
+                        {bookingCodeFixtures.games[0].fixture?.awayTeam}
+                      </p>
+                      <Icon icon="mingcute:time-line" width="15" />
+                    </div>
+                  </>
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>
+      {Teams || bookingResquestValue ? (
+        <>
+          <form
+            onSubmit={(e) => {
+              setShowPotentialWin(!showPotentialWin);
+              console.log("hello");
+              e.preventDefault();
+            }}
+          >
+            <div className="totalstake">
+              <label>Total Stake</label>
+              <input
+                className="valueinput"
+                type="number"
+                value={stake}
+                placeholder="min. 10"
+                onChange={handleBetting}
+              />
+            </div>
+            <div className="potentialwin">
+              <p>Potential Win:</p>
+              <p className="winAmount">{`₦${calculatePotentialWin()}`}</p>
+            </div>
+            <input className="btnstyle" type="submit" value="Place Bet" />
+          </form>
+        </>
+      ) : null}
     </div>
   );
 }
