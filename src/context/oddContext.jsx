@@ -29,7 +29,6 @@ function OddContextProvider({ children }) {
     };
   };
 
-  // Rest of your existing code remains exactly the same
   const handleSetBookingFixtures = (fixtureData) => {
     if (!fixtureData?.games?.length) {
       setBookingCodeFixtures(null);

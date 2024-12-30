@@ -29,15 +29,12 @@ function BettingSlip() {
   const [confirmRequest, setConfirmRequest] = useState(null);
   const [error, setError] = useState(null);
 
-  console.log(updateBookingWithCalculations());
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     setResponseValue(true);
     try {
       // Combine games from both bookingCodeFixtures and Teams if they exist
       let allGames = [];
-      console.log(allGames);
 
       // Add games from bookingCodeFixtures if they exist
       if (bookingCodeFixtures?.games?.length) {
@@ -94,6 +91,7 @@ function BettingSlip() {
   };
 
   // Handle booking code submission and validation
+
   const handleBookingSubmit = async (event) => {
     event.preventDefault();
     setConfirmRequest(true);
@@ -101,6 +99,7 @@ function BettingSlip() {
 
     try {
       const value = await apiValues.handleBookingCode(BookingCode);
+      console.log(value);
       if (value.success) {
         setBookingCodeFixtures(value.game);
         setBookingRequestValue(!bookingResquestValue);
@@ -115,6 +114,7 @@ function BettingSlip() {
     }
   };
 
+  console.log(bookingCodeFixtures);
   const isBookingCodeValid = BookingCode?.length > 0;
   const isSelectionList = Teams?.length > 1;
 
@@ -133,8 +133,6 @@ function BettingSlip() {
     return `${withCommas}.${decimal}`;
   };
 
-  console.log(stake);
-  console.log(Odds);
   const calculatePotentialWin = () => {
     if (!Odds || !stake) return "0.00";
     return formatAmount(parseFloat(Odds) * parseFloat(stake));
@@ -148,7 +146,7 @@ function BettingSlip() {
   }, [Teams, bookingCodeFixtures]);
 
   const handleClearGames = () => {
-    setOdds(null); // Explicitly reset odds first
+    setOdds(null);
     setTeams(null);
     setBookingCodeFixtures(null);
 
@@ -370,7 +368,7 @@ function BettingSlip() {
                       X
                     </div>
                     <div>
-                      <p>{`${bookingCodeFixtures.games[0].selection} @${bookingCodeFixtures.games[0].odd}`}</p>
+                      <p>{`${bookingCodeFixtures?.selection} @${bookingCodeFixtures?.odd}`}</p>
                     </div>
                     <div
                       style={{
@@ -380,8 +378,8 @@ function BettingSlip() {
                       }}
                     >
                       <p>
-                        {bookingCodeFixtures.games[0].fixture?.homeTeam} vs{" "}
-                        {bookingCodeFixtures.games[0].fixture?.awayTeam}
+                        {bookingCodeFixtures?.fixture.homeTeam} vs{" "}
+                        {bookingCodeFixtures?.fixture.awayTeam}
                       </p>
                       <Icon icon="mingcute:time-line" width="15" />
                     </div>
@@ -397,7 +395,6 @@ function BettingSlip() {
           <form
             onSubmit={(e) => {
               setShowPotentialWin(!showPotentialWin);
-              console.log("hello");
               e.preventDefault();
             }}
           >
