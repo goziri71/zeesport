@@ -7,8 +7,6 @@ function OddContextProvider({ children }) {
   const [Teams, setTeams] = useState(null);
   const [bookingCodeFixtures, setBookingCodeFixtures] = useState(null);
 
-  console.log(bookingCodeFixtures);
-
   // Existing calculations
   const calculateTotalOdds = (games) => {
     if (!games || games.length === 0) return 0;

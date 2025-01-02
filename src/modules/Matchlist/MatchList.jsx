@@ -58,13 +58,13 @@ function MatchList() {
     }
 
     setAddedOddsValue(updatedOdds);
-    const total = updatedOdds.reduce((sum, obj) => sum + (obj.odd || 0), 0);
+    const total = updatedOdds.reduce((sum, obj) => sum + obj.odd, 0);
     setOdds(total);
     setTotalOdds(total);
   };
 
   useEffect(() => {
-    oddsApi.handleOfflineSingle();
+    oddsApi.handleOffline();
     const fetchOdds = async () => {
       try {
         const response = await oddsApi.getOdds(date, league);

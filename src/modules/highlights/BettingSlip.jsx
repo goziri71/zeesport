@@ -20,7 +20,7 @@ function BettingSlip() {
   } = useContext(OddContext);
 
   const [stake, setStake] = useState(100);
-  const [newGames, setNewGames] = useState([]);
+  const [gamesOdd, setGamesOdd] = useState(null);
   const [showPotentialWin, setShowPotentialWin] = useState(true);
   const [responseValue, setResponseValue] = useState(null);
   const [succesfulPlayedGames, setSuccesfulPlayedGames] = useState(null);
@@ -66,7 +66,7 @@ function BettingSlip() {
       if (allGames.length === 1) {
         // Single game submission
         const { fixtureId, selection, odd } = allGames[0];
-        value = await apiValues.handleOfflineSingle({
+        value = await apiValues.handleOffline({
           fixtureId,
           selection,
           stake,
@@ -74,7 +74,7 @@ function BettingSlip() {
         });
       } else {
         // Multiple games submission
-        value = await apiValues.handleOfflineSingle({
+        value = await apiValues.handleOffline({
           games: allGames,
           stake,
         });
@@ -99,10 +99,9 @@ function BettingSlip() {
 
     try {
       const value = await apiValues.handleBookingCode(BookingCode);
-      console.log(value);
       if (value.success) {
         setBookingCodeFixtures(value.game);
-        setBookingRequestValue(!bookingResquestValue);
+        setBookingRequestValue(true);
         setShowPotentialWin(true);
       } else {
         setError(value.response?.data?.error || "Invalid booking code");
@@ -114,7 +113,14 @@ function BettingSlip() {
     }
   };
 
-  console.log(bookingCodeFixtures);
+  const codeOdd = () => {
+    if (!bookingCodeFixtures?.games) return null;
+    const game = bookingCodeFixtures.games.map((gamesOdd) => gamesOdd.odd);
+    const combinedOdds = game.reduce((total, odd) => total + odd, 0);
+    setOdds(combinedOdds); // Set combined odds for calculations
+    return game;
+  };
+
   const isBookingCodeValid = BookingCode?.length > 0;
   const isSelectionList = Teams?.length > 1;
 
@@ -138,9 +144,27 @@ function BettingSlip() {
     return formatAmount(parseFloat(Odds) * parseFloat(stake));
   };
 
+  // useEffect(() => {
+  //   if (bookingCodeFixtures?.games) {
+  //     const odds = codeOdd();
+  //   }
+  //   if (!Teams?.length && !bookingCodeFixtures?.games?.length) {
+  //     setOdds(null);
+  //   }
+  // }, [Teams, bookingCodeFixtures]);
+
   useEffect(() => {
-    // If there are no teams selected, reset odds to null
-    if (!Teams?.length && !bookingCodeFixtures?.games?.length) {
+    if (bookingCodeFixtures?.games) {
+      const odds = codeOdd();
+    } else if (bookingCodeFixtures?.game?.games?.[0]) {
+      const odd = parseFloat(bookingCodeFixtures.game.games[0].odd);
+      setOdds(odd);
+    }
+    if (
+      !Teams?.length &&
+      !bookingCodeFixtures?.games?.length &&
+      !bookingCodeFixtures?.game?.games?.length
+    ) {
       setOdds(null);
     }
   }, [Teams, bookingCodeFixtures]);
@@ -155,7 +179,7 @@ function BettingSlip() {
     setShowPotentialWin(true);
     setResponseValue(null);
     setSuccesfulPlayedGames(null);
-    setBookingRequestValue(null);
+    setBookingRequestValue(false);
     setBookingCode("");
     setError(null);
   };
@@ -266,7 +290,7 @@ function BettingSlip() {
                     <button
                       onClick={() => {
                         setSuccesfulPlayedGames(null);
-                        setShowPotentialWin(null);
+                        setShowPotentialWin(true);
                         setResponseValue(null);
                         handleClearGames();
                       }}
@@ -328,14 +352,15 @@ function BettingSlip() {
           <div>
             <div>
               {bookingCodeFixtures?.games?.length > 1 ? (
-                bookingCodeFixtures?.games?.map((gameList) => (
+                bookingCodeFixtures?.games?.map((gameList, index) => (
                   <div key={gameList.id} className="bookingcodestyle">
                     <div
+                      key={index}
                       onClick={() => {
                         handleRemoveBookingGame(gameList.fixtureId);
                       }}
                     >
-                      X
+                      X car
                     </div>
                     <div>
                       <p>{`${gameList.selection} @${gameList.odd}`}</p>
@@ -394,7 +419,7 @@ function BettingSlip() {
         <>
           <form
             onSubmit={(e) => {
-              setShowPotentialWin(!showPotentialWin);
+              setShowPotentialWin(false);
               e.preventDefault();
             }}
           >

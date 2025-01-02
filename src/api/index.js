@@ -148,7 +148,7 @@ export class AuthApis {
     }
   }
 
-  async handleOfflineSingle(data) {
+  async handleOffline(data) {
     try {
       const { fixtureId, selection, games, odd, stake } = data;
       const response = await axios.post(
