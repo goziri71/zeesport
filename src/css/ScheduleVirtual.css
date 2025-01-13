@@ -1,0 +1,232 @@
+.second-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: #1a1e2e;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .backgc {
+    padding-top: 180px;
+    font-family: var(--font-family2);
+  }
+
+.schedule-virtual {
+    background-color: #1a1e2e;
+    color: #ffffff;
+    padding: 20px;
+    max-width: 1024px;
+    margin: 0 auto; /* Adjust this value based on your SecondHeader height */
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header h2 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.live-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #10b981;
+    font-weight: 600;
+}
+
+.pulse {
+    width: 10px;
+    height: 10px;
+    background-color: #10b981;
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    }
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+    }
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    }
+}
+
+.sports-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    padding-bottom: 5px;
+}
+
+.tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background-color: #2d3748;
+    border: none;
+    border-radius: 6px;
+    color: #a0aec0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.tab.active {
+    background-color: #10b981;
+    color: white;
+}
+
+.sport-icon {
+    font-size: 20px;
+}
+
+.schedule-content {
+    margin-bottom: 20px;
+}
+
+.match-card, .race-card {
+    background-color: #2d3748;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.match-header, .race-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.league, .race-name {
+    color: #10b981;
+    font-weight: 600;
+}
+
+.time {
+    background-color: #1a1e2e;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #e2e8f0;
+}
+
+.teams {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.teams span:nth-child(2) {
+    color: #a0aec0;
+    font-size: 14px;
+}
+
+.odds {
+    display: flex;
+    gap: 10px;
+}
+
+.odds button {
+    flex: 1;
+    padding: 8px;
+    background-color: #1a1e2e;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.odds button:hover {
+    background-color: #2d3748;
+}
+
+.odds button span {
+    color: #10b981;
+    font-weight: 600;
+}
+
+.race-info {
+    display: flex;
+    justify-content: space-between;
+    color: #a0aec0;
+    margin-bottom: 15px;
+}
+
+.view-race {
+    width: 100%;
+    padding: 10px;
+    background-color: #10b981;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.view-race:hover {
+    background-color: #059669;
+}
+
+.quick-links {
+    display: flex;
+    gap: 10px;
+    padding-top: 20px;
+    border-top: 1px solid #2d3748;
+}
+
+.quick-link {
+    padding: 8px 16px;
+    background-color: #2d3748;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.quick-link:hover {
+    background-color: #4a5568;
+}
+
+@media (max-width: 768px) {
+    .schedule-virtual {
+        padding: 15px;
+    }
+
+    .sports-tabs {
+        gap: 5px;
+    }
+
+    .tab {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+    .odds {
+        flex-wrap: wrap;
+    }
+
+    .odds button {
+        min-width: 30%;
+    }
+}

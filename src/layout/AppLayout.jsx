@@ -1,6 +1,5 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import "../css/AppLayout.css";
-import Header from "./../components/Header";
 import { dotSpinner } from "ldrs";
 import { AuthContext } from "../context/authContextProvider";
 import SecondHeader from "../components/SecondHeader";
@@ -27,7 +26,6 @@ function AppLayout({ children }) {
       ) : (
         <>
           <div className="layout2">
-            <Header />
             <SecondHeader />
           </div>
 

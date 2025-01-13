@@ -112,18 +112,18 @@ function Header() {
           <div className="userlogin">
             <div className="usernamestyle">
               <div>
-                {validUser.success ? (
+                {validUser?.success ? (
                   <h5>{validUser?.user.firstname.slice(0, 2)}</h5>
                 ) : null}
               </div>
-              {validUser.user && (
+              {validUser?.user && (
                 <button type="submit" onClick={logoutUser}>
                   Logout
                 </button>
               )}
             </div>
-            {(validUser.status == 400 ||
-              validUser.message == "Network Error") && (
+            {(validUser?.status == 400 ||
+              validUser?.message == "Network Error") && (
               <div className="login-forgetpassword-box">
                 <form
                   className={!loginDisplay ? "formbreak" : "formbreakhide"}
@@ -266,8 +266,8 @@ function Header() {
                 </button>
               </div>
               <div>
-                {(validUser.status == 400 ||
-                  validUser.message == "Network Error") && <CreateAcc />}
+                {(validUser?.status == 400 ||
+                  validUser?.message == "Network Error") && <CreateAcc />}
               </div>
             </div>
           </div>

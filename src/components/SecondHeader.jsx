@@ -1,10 +1,12 @@
 import "../css/Header.css";
 import React from "react";
 import { Link } from "react-router-dom";
+import Header from "./Header";
 
 function SecondHeader() {
   return (
     <div>
+      <Header />
       <div className="secondheader">
         <Link to="/">Home</Link>
         <Link to="/football">Football</Link>

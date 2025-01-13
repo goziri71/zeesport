@@ -1,0 +1,427 @@
+
+.pitch-container {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    background: #2d9346; /* Grass green color */
+    border-radius: 8px;
+    margin: 20px 0;
+    overflow: hidden;
+  }
+
+  .backGC {
+    padding-top: 120px;
+  }
+  
+  /* Grass pattern */
+  .pitch-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 40px,
+      rgba(45, 157, 70, 0.5) 40px,
+      rgba(45, 157, 70, 0.5) 80px
+    );
+  }
+  
+  /* Field lines */
+  .pitch {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    border-radius: 4px;
+  }
+  
+  /* Center circle */
+  .center-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  /* Center line */
+  .center-line {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.7);
+  }
+  
+  /* Penalty areas */
+  .penalty-area-left,
+  .penalty-area-right {
+    position: absolute;
+    top: 50%;
+    width: 120px;
+    height: 240px;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    transform: translateY(-50%);
+  }
+  
+  .penalty-area-left {
+    left: 0;
+    border-left: none;
+  }
+  
+  .penalty-area-right {
+    right: 0;
+    border-right: none;
+  }
+  
+  /* Goal areas */
+  .goal-area-left,
+  .goal-area-right {
+    position: absolute;
+    top: 50%;
+    width: 60px;
+    height: 120px;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    transform: translateY(-50%);
+  }
+  
+  .goal-area-left {
+    left: 0;
+    border-left: none;
+  }
+  
+  .goal-area-right {
+    right: 0;
+    border-right: none;
+  }
+
+  
+  
+  /* Goals */
+  .goal-left,
+  .goal-right {
+    position: absolute;
+    top: 50%;
+    width: 20px;
+    height: 60px;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    transform: translateY(-50%);
+  }
+  
+  .goal-left {
+    left: -20px;
+    border-left: none;
+  }
+  
+  .goal-right {
+    right: -20px;
+    border-right: none;
+  }
+  
+  /* Corner arcs */
+  .corner-arc {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    border-radius: 20px;
+  }
+  
+  .corner-top-left {
+    top: -2px;
+    left: -2px;
+    border-right: none;
+    border-bottom: none;
+  }
+  
+  .corner-top-right {
+    top: -2px;
+    right: -2px;
+    border-left: none;
+    border-bottom: none;
+  }
+  
+  .corner-bottom-left {
+    bottom: -2px;
+    left: -2px;
+    border-right: none;
+    border-top: none;
+  }
+  
+  .corner-bottom-right {
+    bottom: -2px;
+    right: -2px;
+    border-left: none;
+    border-top: none;
+  }
+  
+  /* Add the rest of your existing styles after this */
+
+/* Fixed Second Header Styling */
+.second-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+
+
+  
+  /* Adjust main content to account for fixed header */
+  .live-betting {
+    background-color: #1a1e2e;
+    color: white;
+    padding: 24px;
+    max-width: 1024px;
+    margin: 60px auto 0;
+    font-family: var(--font-family2);
+  }
+  
+  /* Your existing styles */
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .header h1 {
+    font-size: 20px;
+    font-weight: 600;
+  }
+  
+  .deposit-button {
+    background-color: #10b981;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .deposit-button:hover {
+    background-color: #059669;
+  }
+  
+  .navigation {
+    border-bottom: 1px solid #2d3748;
+    margin-bottom: 16px;
+  }
+  
+  .nav-button {
+    padding: 8px 16px;
+    background: none;
+    border: none;
+    color: #a0aec0;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  
+  .nav-button.active {
+    border-bottom: 2px solid #10b981;
+    color: #10b981;
+  }
+  
+  .nav-button:hover:not(.active) {
+    color: white;
+  }
+  
+  .match-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+  }
+  
+  .team {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .team-logo {
+    width: 32px;
+    height: 32px;
+    background-color: #4a5568;
+    border-radius: 50%;
+  }
+  
+  .match-time {
+    color: #a0aec0;
+    font-size: 14px;
+  }
+  
+  .timeline {
+    margin-bottom: 32px;
+  }
+  
+  .progress-bar {
+    height: 4px;
+    background-color: #4a5568;
+    border-radius: 2px;
+    position: relative;
+  }
+  
+  .progress {
+    height: 100%;
+    width: 75%;
+    background-color: #10b981;
+    border-radius: 2px;
+  }
+  
+  .time-markers {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    color: #a0aec0;
+    font-size: 14px;
+  }
+  
+  .previous-meetings {
+    position: relative;
+  }
+  
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(transparent, rgba(26, 30, 46, 0.9));
+  }
+  
+  .content {
+    position: relative;
+    z-index: 1;
+    background-color: #2d3748;
+    padding: 24px;
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  .content h2 {
+    margin-bottom: 16px;
+    font-size: 18px;
+  }
+  
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+  }
+  
+  .stat .number {
+    font-size: 36px;
+  }
+  
+  .stat .label {
+    font-size: 14px;
+  }
+  
+  .wins {
+    color: #10b981;
+  }
+  
+  .losses {
+    color: #ef4444;
+  }
+  
+  .betting-form {
+    margin-top: 32px;
+  }
+  
+  .toggle-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  
+  .toggle {
+    padding: 8px 16px;
+    background-color: #4a5568;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .toggle:hover {
+    background-color: #2d3748;
+  }
+  
+  .toggle.active {
+    background-color: #10b981;
+  }
+  
+  .toggle.active:hover {
+    background-color: #059669;
+  }
+  
+  .input {
+    width: 100%;
+    background-color: #2d3748;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    margin-bottom: 16px;
+    transition: background-color 0.2s;
+  }
+  
+  .input:focus {
+    outline: none;
+    background-color: #4a5568;
+  }
+  
+  .load-button {
+    width: 100%;
+    background-color: #4a5568;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 16px;
+    transition: background-color 0.2s;
+  }
+  
+  .load-button:hover {
+    background-color: #2d3748;
+  }
+  
+  .help-text {
+    color: #a0aec0;
+    font-size: 14px;
+  }
+  
+  /* Media Queries for Responsiveness */
+  @media screen and (max-width: 768px) {
+    .live-betting {
+      padding: 16px;
+    }
+  
+    .header {
+      flex-direction: column;
+      gap: 16px;
+      text-align: center;
+    }
+  
+    .match-info {
+      flex-direction: column;
+      gap: 16px;
+      text-align: center;
+    }
+  
+    .stats {
+      gap: 16px;
+    }
+  }
