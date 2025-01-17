@@ -387,11 +387,6 @@
         gap: 0;
     } */
 
-      /* .headerText {
-        margin-top: 0;
-        justify-content: start;
-    } */
-
     .secondheader {
         display: none;
     }
@@ -432,7 +427,7 @@
     }
 
     .headerText img {
-        min-width: 15%;
+        width: 13rem;
     }
 
     .iconebar {

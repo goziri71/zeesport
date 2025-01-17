@@ -16,18 +16,24 @@ function BettingSlip() {
     handleRemoveBookingGame,
     setBookingCodeFixtures,
     bookingCodeFixtures,
-    updateBookingWithCalculations,
+    bookingCodePopup,
+    setBookingCodePopup,
   } = useContext(OddContext);
+
+  console.log(Teams + "clicked");
+  console.log(bookingCodeFixtures);
 
   const [stake, setStake] = useState(100);
   const [gamesOdd, setGamesOdd] = useState(null);
-  const [showPotentialWin, setShowPotentialWin] = useState(true);
+  const [showPotentialWin, setShowPotentialWin] = useState(null);
   const [responseValue, setResponseValue] = useState(null);
   const [succesfulPlayedGames, setSuccesfulPlayedGames] = useState(null);
   const [BookingCode, setBookingCode] = useState("");
-  const [bookingResquestValue, setBookingRequestValue] = useState(null);
+  const [bookingRequestValue, setBookingRequestValue] = useState(null);
   const [confirmRequest, setConfirmRequest] = useState(null);
   const [error, setError] = useState(null);
+
+  let DEFAULT_STAKE = 100;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -82,7 +88,6 @@ function BettingSlip() {
 
       // Update state with response
       setResponseValue(value);
-      setShowPotentialWin(null);
       setSuccesfulPlayedGames(true);
     } catch (error) {
       console.error("Error processing games:", error);
@@ -91,9 +96,8 @@ function BettingSlip() {
   };
 
   // Handle booking code submission and validation
-
-  const handleBookingSubmit = async (event) => {
-    event.preventDefault();
+  const handleBookingSubmit = async (e) => {
+    e.preventDefault();
     setConfirmRequest(true);
     setError(null);
 
@@ -102,7 +106,7 @@ function BettingSlip() {
       if (value.success) {
         setBookingCodeFixtures(value.game);
         setBookingRequestValue(true);
-        setShowPotentialWin(true);
+        setBookingCodePopup(true); // Ensure the popup is shown
       } else {
         setError(value.response?.data?.error || "Invalid booking code");
       }
@@ -114,12 +118,26 @@ function BettingSlip() {
   };
 
   const codeOdd = () => {
-    if (!bookingCodeFixtures?.games) return null;
-    const game = bookingCodeFixtures.games.map((gamesOdd) => gamesOdd.odd);
-    const combinedOdds = game.reduce((total, odd) => total + odd, 0);
-    setOdds(combinedOdds); // Set combined odds for calculations
-    return game;
+    let combinedOdds = 0;
+    if (bookingCodeFixtures?.games) {
+      const bookingOdds = bookingCodeFixtures.games.map((game) => game.odd);
+      combinedOdds += bookingOdds.reduce(
+        (total, odd) => total + parseFloat(odd),
+        0
+      );
+    }
+    if (Teams?.length) {
+      const teamOdds = Teams.map((team) => team.odd);
+      combinedOdds += teamOdds.reduce(
+        (total, odd) => total + parseFloat(odd),
+        0
+      );
+    }
+    setOdds(combinedOdds);
+    return combinedOdds;
   };
+
+  console.log(Odds);
 
   const isBookingCodeValid = BookingCode?.length > 0;
   const isSelectionList = Teams?.length > 1;
@@ -144,29 +162,8 @@ function BettingSlip() {
     return formatAmount(parseFloat(Odds) * parseFloat(stake));
   };
 
-  // useEffect(() => {
-  //   if (bookingCodeFixtures?.games) {
-  //     const odds = codeOdd();
-  //   }
-  //   if (!Teams?.length && !bookingCodeFixtures?.games?.length) {
-  //     setOdds(null);
-  //   }
-  // }, [Teams, bookingCodeFixtures]);
-
   useEffect(() => {
-    if (bookingCodeFixtures?.games) {
-      const odds = codeOdd();
-    } else if (bookingCodeFixtures?.game?.games?.[0]) {
-      const odd = parseFloat(bookingCodeFixtures.game.games[0].odd);
-      setOdds(odd);
-    }
-    if (
-      !Teams?.length &&
-      !bookingCodeFixtures?.games?.length &&
-      !bookingCodeFixtures?.game?.games?.length
-    ) {
-      setOdds(null);
-    }
+    codeOdd();
   }, [Teams, bookingCodeFixtures]);
 
   const handleClearGames = () => {
@@ -176,12 +173,13 @@ function BettingSlip() {
 
     // Then reset local state
     setStake(DEFAULT_STAKE);
-    setShowPotentialWin(true);
+    setShowPotentialWin(null);
     setResponseValue(null);
     setSuccesfulPlayedGames(null);
     setBookingRequestValue(false);
     setBookingCode("");
     setError(null);
+    setBookingCodePopup(false);
   };
 
   return (
@@ -190,7 +188,7 @@ function BettingSlip() {
         <h4>BetSlip</h4>
         <h4>Cashout</h4>
       </div>
-      {Teams ? (
+      {bookingCodePopup ? (
         <div className="betcase">
           <button
             className={
@@ -204,26 +202,28 @@ function BettingSlip() {
           </button>
           {Teams?.map((pickGames) => {
             return (
-              <div key={pickGames._id}>
-                <div className="gamestyle">
-                  <div>
-                    <p>{pickGames.selection}</p>
-                    <p>{pickGames.team}</p>
-                    <p>{pickGames.odd}</p>
-                  </div>
+              <div className="gamestyle" key={pickGames._id}>
+                <div>
+                  <p>{pickGames.selection}</p>
+                  <p>{pickGames.team}</p>
+                  <p>@{pickGames.odd}</p>
+                </div>
+                <div className="cancelstyle">
                   <p
                     className="gamesbutton"
                     onClick={() => handleRemoveGame(pickGames.fixtureId)}
                   >
-                    X
+                    <Icon icon="line-md:remove" width="14" height="14" />
                   </p>
+
+                  <Icon icon="svg-spinners:clock" width="13" height="24" />
                 </div>
               </div>
             );
           })}
           <div></div>
 
-          {!showPotentialWin && (
+          {showPotentialWin && (
             <div className="modalstyloing">
               <div className="modal-overlay">
                 <div className="modal-content">
@@ -239,7 +239,7 @@ function BettingSlip() {
                         setResponseValue(null);
                       }}
                     >
-                      Cansel
+                      Cancel
                     </button>
                     <button onClick={handleSubmit}>
                       {responseValue ? (
@@ -293,6 +293,7 @@ function BettingSlip() {
                         setShowPotentialWin(true);
                         setResponseValue(null);
                         handleClearGames();
+                        setTeams(null);
                       }}
                     >
                       OK
@@ -305,19 +306,19 @@ function BettingSlip() {
         </div>
       ) : (
         <div>
-          <div className={bookingResquestValue ? "hidBetSlip" : "oddsbet"}>
+          <div className={bookingRequestValue ? "hidBetSlip" : "oddsbet"}>
             <div>
               <p>To place a bet, click on the odds. Or insert a booking code</p>
               <form onSubmit={handleBookingSubmit}>
                 <select className="selectoptions">
                   <option>Nigeria</option>
                   <option>Ghana</option>
-                  <option>South africa</option>
+                  <option>South Africa</option>
                   <option>Nigeria</option>
                 </select>
                 {error && (
                   <p style={{ color: "red", margin: "7px 0 0 0" }}>
-                    invalide Booking Code
+                    Invalid Booking Code
                   </p>
                 )}
                 <input
@@ -348,22 +349,31 @@ function BettingSlip() {
         </div>
       )}
       <div>
-        {bookingResquestValue && (
+        {bookingRequestValue && (
           <div>
             <div>
               {bookingCodeFixtures?.games?.length > 1 ? (
                 bookingCodeFixtures?.games?.map((gameList, index) => (
                   <div key={gameList.id} className="bookingcodestyle">
-                    <div
-                      key={index}
-                      onClick={() => {
-                        handleRemoveBookingGame(gameList.fixtureId);
-                      }}
-                    >
-                      X car
+                    <div className="bookingcancel">
+                      <div
+                        className="cancelbutton"
+                        key={index}
+                        onClick={() => {
+                          handleRemoveBookingGame(gameList.fixtureId);
+                        }}
+                      >
+                        <Icon icon="line-md:remove" width="14" height="14" />
+                      </div>
                     </div>
                     <div>
-                      <p>{`${gameList.selection} @${gameList.odd}`}</p>
+                      <p>{gameList.selection}</p>
+                    </div>
+                    <div>
+                      <p>
+                        {gameList.fixture.homeTeam} -{" "}
+                        {gameList.fixture.awayTeam}{" "}
+                      </p>
                     </div>
                     <div
                       style={{
@@ -372,11 +382,8 @@ function BettingSlip() {
                         justifyContent: "space-between",
                       }}
                     >
-                      <p>
-                        {gameList.fixture.homeTeam} vs{" "}
-                        {gameList.fixture.awayTeam}{" "}
-                      </p>
-                      <Icon icon="mingcute:time-line" width="15" />
+                      <p>@{gameList.odd}</p>
+                      <Icon icon="svg-spinners:clock" width="13" height="24" />
                     </div>
                   </div>
                 ))
@@ -403,8 +410,8 @@ function BettingSlip() {
                       }}
                     >
                       <p>
-                        {bookingCodeFixtures?.fixture.homeTeam} vs{" "}
-                        {bookingCodeFixtures?.fixture.awayTeam}
+                        {bookingCodeFixtures?.fixture?.homeTeam} vs{" "}
+                        {bookingCodeFixtures?.fixture?.awayTeam}
                       </p>
                       <Icon icon="mingcute:time-line" width="15" />
                     </div>
@@ -415,14 +422,13 @@ function BettingSlip() {
           </div>
         )}
       </div>
-      {Teams || bookingResquestValue ? (
+      {bookingCodePopup || bookingRequestValue ? (
         <>
-          <form
-            onSubmit={(e) => {
-              setShowPotentialWin(false);
-              e.preventDefault();
-            }}
-          >
+          <div>
+            <div className="bettingcode">
+              <p>Total Odds</p>
+              <p>{parseFloat(Odds.toFixed(2))}</p>
+            </div>
             <div className="totalstake">
               <label>Total Stake</label>
               <input
@@ -437,8 +443,16 @@ function BettingSlip() {
               <p>Potential Win:</p>
               <p className="winAmount">{`₦${calculatePotentialWin()}`}</p>
             </div>
-            <input className="btnstyle" type="submit" value="Place Bet" />
-          </form>
+            <button
+              className="btnstyle"
+              onClick={(e) => {
+                e.preventDefault();
+                setShowPotentialWin(!showPotentialWin);
+              }}
+            >
+              Place Bet
+            </button>
+          </div>
         </>
       ) : null}
     </div>

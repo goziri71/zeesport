@@ -89,24 +89,33 @@
 
 
 .gamestyle {
-    background-color: #f1f1f1;
+    padding: .2em 0em .2em 0em;
+    font-size: 1.1rem;
+    background-color: #ffffff;
     color: #000000;
     font-family: var(--font-family2);
     display: flex;
     justify-content: space-between;
+    align-items: end;
     width: 100%;
     margin-bottom: .2em;
 }
 
-.gamestyle div{
-    padding: .3em;
+.cancelstyle {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.1em;
 }
 
+
 .gamesbutton {
-    text-transform: uppercase;
-    font-weight: bolder;
-    font-size: .5em;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bolder;
+  font-size: .7rem;
 }
+
 
 .betcase p {
     cursor: pointer;
@@ -117,6 +126,11 @@
 
 .btnstyle {
     cursor: pointer;
+    width: 100%;
+    padding: .7em;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
 }
 
 .btnstyle:hover {
@@ -232,6 +246,8 @@
 
   .winnings-display .stake-info {
     font-size: 17px;
+    color: rgb(42, 165, 63);
+    font-weight: bolder;
   }
   
   .modal-overlay > div:last-child {
@@ -263,6 +279,27 @@
   
   .modal-overlay button:hover {
     opacity: 0.9;
+  }
+
+  .bettingcode {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-family2);
+    padding: 0.3em 0em 0.3em 0em;
+  }
+
+  .bookingcancel {
+    display: flex;
+    justify-content: end;
+  }
+
+  .cancelbutton {
+    font-size: 0.8rem;
+    padding: 0em 0.1em 0em 0.1em;
+    font-weight: bolder;
+    color: #272727;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    cursor: pointer;
   }
   
   @keyframes fadeIn {
@@ -305,7 +342,7 @@
 
 .bookingcode {
     font-weight: bolder;
-    font-size: 4rem;
+    font-size: 1.1rem;
     letter-spacing: 1.4px;
 }
 
@@ -328,7 +365,7 @@
 .bookingcodestyle {
     background-color: #ffffff;
     margin-top: .2em;
-    padding: .3em;
+    padding: 0em .2em 0em .2em;
     font-family: var(--font-family2);
     font-size: .9rem;
     color: #000000;

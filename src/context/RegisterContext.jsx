@@ -1,13 +1,13 @@
 import React, { createContext, useState } from "react";
 
-export const RegisterContext = createContext();
+export const RegisterAccountContext = createContext();
 
 function RegisterContext({ children }) {
   const [openCreateAccount, setOpenCreateAccount] = useState(null);
   return (
-    <RegisterContext.Provider value={{ setOpenCreateAccount }}>
+    <RegisterAccountContext.Provider value={{ setOpenCreateAccount }}>
       {children}
-    </RegisterContext.Provider>
+    </RegisterAccountContext.Provider>
   );
 }
 

@@ -68,7 +68,8 @@ function CreateAcc() {
       if (response.data.success) {
         setError(null);
         localStorage.setItem("VT", JSON.stringify(response.data.message.token));
-        setVerifyData(response.data.message);
+        console.log(response.data.message);
+        // setVerifyData(response.data.message);
         navigate("/verify");
       }
     } else {
@@ -216,11 +217,13 @@ function CreateAcc() {
                 </div>
               </div>
             </form>
-            <div className="loadingspiner">
-              {error && <h1>{error?.error}</h1>}
-            </div>
-            <div className="loadingspiner">
-              {networkError && <h1>{networkError}</h1>}
+            <div className="errorCasestyling">
+              <div className="loadingspiner">
+                <p className="styleerror">{error && <h1>{error?.error}</h1>}</p>
+              </div>
+              <div className="loadingspiner">
+                {networkError && <h1>{networkError}</h1>}
+              </div>
             </div>
             <p>
               By creating an account, you agree to our Terms & Conditions and

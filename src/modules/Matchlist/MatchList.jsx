@@ -22,11 +22,19 @@ function MatchList() {
   const [addedOddsValue, setAddedOddsValue] = useState([]);
   const [totalOdds, setTotalOdds] = useState(0);
   const [oddscontext, setOddscontext] = useState([]);
-  const { setOdds, Odds, setTeams, Teams } = useContext(OddContext);
+  const {
+    setOdds,
+    Odds,
+    setTeams,
+    Teams,
+    setBookingCodePopup,
+    bookingCodePopup,
+  } = useContext(OddContext);
 
   console.log(Teams);
 
   const addGames = (value) => {
+    setBookingCodePopup(true);
     const currentOddsContext = Teams || [];
     const currentAddedOddsValue = addedOddsValue || [];
 

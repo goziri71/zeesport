@@ -1,8 +1,8 @@
 /* Layout Container */
 .casino-layout {
     display: flex;
-    min-height: 100vh;
-    padding-top: 70px; /* Height of the fixed header */
+    height: 100vh;
+    padding-top: 20px; /* Height of the fixed header */
     padding-left: 240px; /* Width of the sidebar */
     background-color: #eeeeee;
     color: #ffffff;
@@ -25,19 +25,20 @@
   /* Sidebar */
   .sidebar {
     width: 200px;
-    background-color: #242424;
+    background-color: #000000d5;
     padding: 20px 0;
     border-right: 1px solid #333;
     position: fixed;
-    left: 10em;
-    top: 75px; /* Start below fixed header */
+    left: 0em;
+    top: 160px; /* Start below fixed header */
     height: calc(80vh - 60px); /* Full height minus header */
     overflow-y: auto;
     z-index: 900;
   }
   
   .sidebar-header {
-    padding: 0 20px 20px;
+  padding: 0 10px 10px;
+    background-color: rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid #333;
   }
   
@@ -47,7 +48,7 @@
   }
   
   .sidebar-nav {
-    padding: 20px 0;
+    padding: 10px 0;
   }
   
   .nav-item {
@@ -58,8 +59,9 @@
     width: 100%;
     border: none;
     background: none;
-    color: #888;
-    font-size: 0.95rem;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: bolder;
     text-align: left;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -83,14 +85,15 @@
   }
   
   .content-header {
+    margin-top: 2em;
     margin-bottom: 30px;
     color: #000000;
+    text-align: right;
   }
 
   
   .content-header h1 {
-    font-size: 2rem;
-    font-weight: 600;
+    font-size: 1.8rem;
     margin-bottom: 8px;
   }
   
@@ -132,6 +135,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 20px;
+    grid-auto-flow: row dense;
   }
   
   .game-card {
@@ -233,6 +237,12 @@
     .sidebar {
       width: 200px;
     }
+
+    .sidebar {
+      background-color: #d13f0072;
+      border-right: 1px solid #333;
+      border-radius: 0px 0px 100px 0px;
+    }
   
     .games-grid {
       grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -251,10 +261,10 @@
     }
   
     .sidebar {
-      width: 100%;
-      top: 120px;
+      width: 40%;
+      top: 160px;
       height: auto;
-      position: relative;
+      position: fixed;
       border-right: none;
       border-bottom: 1px solid #333;
     }

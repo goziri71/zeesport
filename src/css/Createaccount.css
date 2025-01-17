@@ -94,18 +94,38 @@
     padding: 0.2em;
 }
 
-
-.loadingspiner {
-    width: 100%;
+.errorCasestyling {
     position: absolute;
     left: 0;
     top: 6.7em;
-    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+
+.styleerror {
+    background-color: #a53232b6;
+    padding: 0.5em;
+    border: #ff0000 1px solid;
+    width: 100%;
+    max-width: 700px;
+    box-sizing: border-box; 
+}
+
+/* .loadingspiner {
+    text-align: center;
+    background-color: #ff00008c;
+    width: 50%;
+    max-width: 300px; 
+    padding: 1em; 
+    box-sizing: border-box; 
+} */
+
 .loadingspiner h1 {
-    color: #ff0000;
-    font-size: 0.7rem;
+    color: #dddddd;
+    font-size: 0.6rem;
 }
 
 .icon_style {
