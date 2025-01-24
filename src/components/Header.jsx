@@ -35,6 +35,7 @@ function Header() {
   const { validUser } = useContext(AuthContext);
   const { logoutUser } = useLogout();
   const [error, setError] = useState(null);
+  const [showError, setShowError] = useState(false);
   const [state, dispatch] = useReducer(reducer, { email: "", password: "" });
   const [formValue, setFormValue] = useState(null);
   const [dropDown, setDropDown] = useState(true);
@@ -44,6 +45,7 @@ function Header() {
   const [resetStateLoader, setReseatStateLoader] = useState(null);
   const [resetErrorMesage, setResetErrorMesage] = useState(null);
   const [updateMessagebgc, setUpdateMessagebgc] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -54,7 +56,7 @@ function Header() {
       });
       setTimeout(() => {
         setError(null);
-      }, 3000);
+      }, 1000);
       return;
     }
     setLoginSpiner(true);
@@ -144,16 +146,20 @@ function Header() {
                       value={state.email}
                     />
                     <input
-                      type="password"
+                      type={showPassword ? "text" : "password"}
                       placeholder="Password"
                       onChange={(e) => {
-                        dispatch({ type: "PASSWORD", payload: e.target.value });
+                        dispatch({
+                          type: "PASSWORD",
+                          payload: e.target.value,
+                        });
                         setFormValue(
                           e.target.value !== "" && state.email !== ""
                         );
                       }}
                       value={state.password}
                     />
+
                     <button
                       className={
                         formValue ? "loginButton" : "loginButtonInvalid"
@@ -162,9 +168,10 @@ function Header() {
                     >
                       {loginSpiner ? (
                         <l-dot-spinner
-                          size="9"
+                          size="8"
                           speed="0.3"
                           color="white"
+                          padding="0.5em 1.5em"
                         ></l-dot-spinner>
                       ) : (
                         "Login"
@@ -172,6 +179,7 @@ function Header() {
                     </button>
                   </div>
                 </form>
+
                 <div
                   className={
                     !loginDisplay ? "forgotpasword" : "forgotpasswordshow"
@@ -185,6 +193,7 @@ function Header() {
                     Forgot Password?
                   </p>
                 </div>
+
                 {forgotpassword && (
                   <div className="forgot_Password">
                     <div className="forgotpassword_child">

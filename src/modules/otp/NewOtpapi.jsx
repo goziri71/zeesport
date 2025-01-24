@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { OddContext } from "../../context/oddContext";
 
 const NewOtpapi = ({ handleFormSubmission }) => {
-  const [otp, setOtp] = useState(new Array(6).fill(""));
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const { accountSpinner, setAccountSpinner, otp, setOtp } =
+    useContext(OddContext);
+
+  console.log(accountSpinner);
+  console.log(otp);
 
   const handleChange = (element, index) => {
     if (isNaN(element.value)) return;
@@ -25,6 +30,7 @@ const NewOtpapi = ({ handleFormSubmission }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setAccountSpinner(true);
     const newOtp = Number(otp.join(""));
     await handleFormSubmission(newOtp);
   };
@@ -59,7 +65,11 @@ const NewOtpapi = ({ handleFormSubmission }) => {
         type="submit"
         disabled={isButtonDisabled}
       >
-        Submit
+        {accountSpinner ? (
+          <l-dot-spinner size="12" speed="0.3" color="white"></l-dot-spinner>
+        ) : (
+          "Submit"
+        )}
       </button>
     </form>
   );

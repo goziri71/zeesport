@@ -103,7 +103,6 @@
     border-radius: 50%;
     margin-top: 0.2em;
     animation: pulse 1.5s infinite;
-    position: relative;
 }
 
 @keyframes pulse {

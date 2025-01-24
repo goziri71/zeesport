@@ -4,18 +4,23 @@ import { OddContext } from "../../context/oddContext";
 import { AuthApis } from "../../api";
 import NewOtpapi from "./NewOtpapi";
 import { useNavigate } from "react-router-dom";
+import image1 from "../../assets/images/ZeeSportlogo.png";
 
 const authApis = new AuthApis();
 function Ottpp() {
   const [otp] = useState("");
   const [isValid] = useState(false);
-  const { verifyData } = useContext(OddContext);
+  const { verifyData, setVerifyData, setAccountSpinner, setOtp } =
+    useContext(OddContext);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+  console.log(verifyData);
 
   const handleFormSubmission = async (data) => {
     try {
       setError(null);
+      setVerifyData(null);
       console.log(data);
       const response = await authApis.verifyAccount({ otp: Number(data) });
       console.log(response);
@@ -25,33 +30,43 @@ function Ottpp() {
       }
 
       setError(response.response.data.error);
+      setAccountSpinner(false);
     } catch (err) {
       console.log(err.message);
     }
   };
 
   const handleRequestNewOTP = async () => {
+    setError(null);
+    setVerifyData(null);
+    setOtp(["", "", "", "", "", ""]);
     const response = await authApis.requestNewOTP();
     if (response.success) {
       localStorage.setItem("VT", JSON.stringify(response.message.token));
     }
     console.log(response);
+    setVerifyData(response.message);
   };
 
   return (
-    <div className="backgroundbody">
-      <div className="otpbody">
-        <div>
-          <h1>Verification Code</h1>
-          <h6>{verifyData?.message}</h6>
-          {error && <p>{error}</p>}
-          <a href="#" onClick={handleRequestNewOTP}>
-            request new OTP
-          </a>
-          <NewOtpapi handleFormSubmission={handleFormSubmission} />
+    <>
+      <div className="backgroundbody">
+        <div className="logo">
+          <img src={image1} alt="this is zee sport logo" />
+        </div>
+        <div className="otpbody">
+          <div>
+            <span className="errorstyleing">{error && <p>{error}</p>}</span>
+            <h1>Verification Code</h1>
+            <h6>{verifyData?.message}</h6>
+            <a href="#" onClick={handleRequestNewOTP}>
+              request new OTP
+            </a>
+            <NewOtpapi handleFormSubmission={handleFormSubmission} />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

@@ -18,7 +18,7 @@
     color: #ffffff;
     padding: 20px;
     max-width: 1024px;
-    margin: 0 auto; /* Adjust this value based on your SecondHeader height */
+    margin: -20px auto; /* Adjust this value based on your SecondHeader height */
 }
 
 .header {

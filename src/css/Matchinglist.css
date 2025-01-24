@@ -37,6 +37,14 @@
     cursor: pointer;
 }
 
+.odd_style td:hover {
+    background-color: rgb(19, 129, 0);
+}
+
+.odd_style td.clicked {
+    background-color: rgb(19, 129, 0);
+}
+
 .odd_style td:nth-child(1) {
     border-radius: 3px 0px 0px 3px;
 }

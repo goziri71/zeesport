@@ -277,7 +277,11 @@ function BettingSlip() {
                     </div>
                     <div className="succestyle">
                       <p>Potential Win</p>
-                      <p className="stake-info">₦{calculatePotentialWin()}</p>
+                      <p className="stake-info">
+                        <span className="stakevalue">
+                          ₦{calculatePotentialWin()}
+                        </span>
+                      </p>
                     </div>
                     <div className="succestyle">
                       <p>Booking Code</p>

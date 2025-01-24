@@ -49,6 +49,7 @@
 
 .registerCase form input:focus {
     background-color: #e7e7e7;
+    color: #000000;
     outline: 0;
 }
 
@@ -112,6 +113,7 @@
     width: 100%;
     max-width: 700px;
     box-sizing: border-box; 
+    color: #fff;
 }
 
 /* .loadingspiner {
@@ -152,5 +154,15 @@
         width: 100vw;
         height: 100vh;
         left: -.92em;
+    }
+
+    .styleerror {
+        width: 80%;
+        font-size: .8rem;
+    }
+
+    .loadingspiner {
+        display: flex;
+        justify-content: center;
     }
 }

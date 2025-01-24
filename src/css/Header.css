@@ -37,21 +37,21 @@
     display: none;
 }
 
+.texterrordisplay {
+    display: flex;
+    justify-content: center;
+}
+
+
 .texterrordisplay p {
-    width: 50%;
+    width: 40%;
     padding: 4px;
     color: #ffffff;
     font-size: calc(.3rem + .4rem);
-    transition: ease-in-out 1s;
-}
-
-.texterrordisplay {
-    display: flex;
     justify-content: center;
     text-align: center;
     background-color: #ff00003d;
     border: 1px solid #ff0000ab;
-    transform: ease-in-out 2s;
 }
 
 
@@ -163,10 +163,12 @@
     cursor: pointer;
     border-radius: 0px;
     border: 0px;
-    padding: 0.6em 1em;
-    margin-left: -4px;
+    padding: 0.6em 1.5em;
+    margin-left: 1.5px;
     align-self: center;
+    margin-top: 0em;
 }
+
 
 .loginButtonInvalid {
     background-color: #555555a1;
@@ -174,10 +176,11 @@
     cursor: pointer;
     border-radius: 0px;
     border: 0px;
-    padding: 0.6em 1em;
-    margin-left: -4px;
+    padding: .6em 1.5em;
+    margin-left: 2px;
     align-self: center;
     cursor: not-allowed;
+    margin-top: 0em;
 }
 
 .usernamestyle {
@@ -302,6 +305,8 @@
     font-size: calc(1rem);
     cursor: pointer;
 }
+
+
 
 
 
@@ -440,10 +445,11 @@
 
     .formbreak {
         display: none;
+
     }
 
     .formbreakhide {
-        background-image: radial-gradient(circle at top center, rgb(235, 235, 235) 0%, rgb(235, 235, 235) 10%,rgb(229, 229, 229) 10%, rgb(229, 229, 229) 19%,rgb(222, 222, 222) 19%, rgb(222, 222, 222) 22%,rgb(216, 216, 216) 22%, rgb(216, 216, 216) 24%,rgb(209, 209, 209) 24%, rgb(209, 209, 209) 63%,rgb(203, 203, 203) 63%, rgb(203, 203, 203) 75%,rgb(196, 196, 196) 75%, rgb(196, 196, 196) 100%);
+        background-color: #000000cc;
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -455,16 +461,17 @@
         padding: 1em;
     }
 
-    .formbreakhide input {
-        height: 3.7vh;
-        align-self: center;
-    }
-
     .formedite {
         display: flex;
         flex-direction: column;
         margin: 0;
         padding: 0;
+        width: 80%;
+    }
+
+    .formedite input {
+        margin: 1em;
+        background-color: #ffffff;
     }
 
     .formbreakhide button {
@@ -484,7 +491,7 @@
         align-items: center;
         position: absolute;
         left: 15px;
-        bottom: .7em;
+        bottom: .8em;
     }
 
     .loginbtndisplay {
@@ -502,13 +509,32 @@
     }
 
     .forgotpasswordshow {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        bottom: -14.2em;
+        left: 7.5em;
+        background-color: #ff000081;
+        padding: .1rem .2rem;
+        border-radius: 1px;
+    }
+
+    .forgotpasswordshow p {
         font-family: var(--font-family2);
-        color: #ff0000;
-        font-weight: bolder;
+        color: #ffffff;
         cursor: pointer;
-        position: absolute;
-        top: 11.2em;
-        left: 1em;
+        font-size: .4rem;
+    }
+
+    .loginButtonInvalid {
+        margin-top: 1.5em;
+        width: 90.5%;
+    }
+
+    .loginButton {
+        margin-top: 1.5em;
+        width: 90.5%;
     }
 
     /* .iconebar {
@@ -532,7 +558,7 @@
 
 
 
-@media (max-width: 570px) {
+/* @media (max-width: 570px) { 
 
     /* .formbreak {
         display: none;
@@ -597,7 +623,7 @@
     /* .iconebar {
         top: 2.2em;
     } */
-}
+/* } */
 
 
 

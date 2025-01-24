@@ -24,6 +24,8 @@ const reducer = (state, action) => {
       return { ...state, phone: action.payload };
     case "DATEOFBIRTH":
       return { ...state, dateofbirth: action.payload };
+    case "RESET":
+      return reducer;
     default:
       throw new Error("Invalid input");
   }
@@ -69,7 +71,7 @@ function CreateAcc() {
         setError(null);
         localStorage.setItem("VT", JSON.stringify(response.data.message.token));
         console.log(response.data.message);
-        // setVerifyData(response.data.message);
+        setVerifyData(response.data.message);
         navigate("/verify");
       }
     } else {
@@ -97,6 +99,8 @@ function CreateAcc() {
               <div
                 onClick={() => {
                   setOpenCreateAccount(!openCreateAccount);
+                  setError(null);
+                  dispatch({ type: "RESET" });
                 }}
               >
                 <Icon
@@ -196,7 +200,7 @@ function CreateAcc() {
                     name="dateofbirth"
                     value={state.dateofbirth}
                     type="number"
-                    placeholder="DOB"
+                    placeholder="yyyy"
                   />
 
                   <button
@@ -206,7 +210,7 @@ function CreateAcc() {
                   >
                     {loading ? (
                       <l-dot-spinner
-                        size="22"
+                        size="12"
                         speed="0.3"
                         color="white"
                       ></l-dot-spinner>
@@ -219,7 +223,9 @@ function CreateAcc() {
             </form>
             <div className="errorCasestyling">
               <div className="loadingspiner">
-                <p className="styleerror">{error && <h1>{error?.error}</h1>}</p>
+                <div className={error && "styleerror"}>
+                  {error && <span>{error.error}</span>}
+                </div>
               </div>
               <div className="loadingspiner">
                 {networkError && <h1>{networkError}</h1>}

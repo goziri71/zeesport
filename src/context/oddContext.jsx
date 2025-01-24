@@ -7,10 +7,14 @@ function OddContextProvider({ children }) {
   const [Teams, setTeams] = useState(null);
   const [bookingCodeFixtures, setBookingCodeFixtures] = useState(null);
   const [bookingCodePopup, setBookingCodePopup] = useState(null);
+  const [verifyData, setVerifyData] = useState(null);
+  const [accountSpinner, setAccountSpinner] = useState(false);
+  const [otp, setOtp] = useState(new Array(6).fill(""));
 
   console.log(bookingCodePopup);
   console.log(Teams);
   console.log(bookingCodeFixtures);
+  console.log(accountSpinner);
 
   // Existing calculations
   const calculateTotalOdds = (games) => {
@@ -122,6 +126,12 @@ function OddContextProvider({ children }) {
         updateBookingWithCalculations,
         bookingCodePopup,
         setBookingCodePopup,
+        verifyData,
+        setVerifyData,
+        accountSpinner,
+        setAccountSpinner,
+        otp,
+        setOtp,
       }}
     >
       {children}

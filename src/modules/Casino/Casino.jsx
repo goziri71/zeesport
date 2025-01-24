@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SecondHeader from "../../components/SecondHeader";
 import "../../css/Casino.css";
+import { Icon } from "@iconify/react";
 
 // SVG Icons as components
 const SearchIcon = () => (
@@ -461,6 +462,13 @@ const categories = [
 const Casino = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+  const [windowResize, setWindowResize] = useState(window.innerWidth);
+  const [iconswitching, setIconswitching] = useState(null);
+  const [iconMobileView, setIconMobileView] = useState(true);
+  const [isIconDisplayEnabled, setIsIconDisplayEnabled] = useState(true);
+
+  console.log(mobileSidebarOpen);
 
   const filteredGames = casinoGames.filter((game) => {
     const matchesSearch =
@@ -479,33 +487,90 @@ const Casino = () => {
 
   const [sportLink] = useState([]);
 
+  const handleIconDisplay = () => {
+    if (isIconDisplayEnabled) return;
+    setMobileSidebarOpen(!mobileSidebarOpen);
+    setIconMobileView(true);
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowResize(window.innerWidth);
+      if (window.innerWidth > 768) {
+        setMobileSidebarOpen(false);
+        setIconMobileView(false);
+        setIconswitching(false);
+        handleIconDisplay();
+      } else {
+        setMobileSidebarOpen(true);
+        setIconswitching(true);
+        setIconMobileView(true);
+        setIsIconDisplayEnabled();
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    // Set initial state
+    handleResize();
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <div>
       <div className="header-container">
         <SecondHeader text={sportLink} />
       </div>
-
       <div className="casino-layout">
         {/* Sidebar Navigation */}
-        <aside className="sidebar">
-          <div className="sidebar-header">
-            <h2>Categories</h2>
+        <div className="sidebar">
+          {mobileSidebarOpen ? (
+            <button
+              className="mobile-sidebar-toggle"
+              onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)}
+            >
+              {iconMobileView && (
+                <Icon
+                  icon="garden:chevron-left-stroke-12"
+                  width="18"
+                  height="18"
+                  style={{ color: "#fff" }}
+                />
+              )}
+              <p>More</p>
+            </button>
+          ) : null}
+          <div
+            className={mobileSidebarOpen ? "mobileSidebarOpen" : "sidebarstyle"}
+          >
+            <div className="sidebar-header" onClick={handleIconDisplay}>
+              {iconswitching && (
+                <Icon
+                  icon="garden:chevron-right-fill-16"
+                  width="18"
+                  height="18"
+                  style={{ color: "#fff" }}
+                />
+              )}
+              <h2>Categories</h2>
+            </div>
+
+            <nav className="sidebar-nav">
+              {categories.map((category) => (
+                <button
+                  key={category.id}
+                  onClick={() => setSelectedCategory(category.id)}
+                  className={`nav-item ${
+                    selectedCategory === category.id ? "active" : ""
+                  }`}
+                >
+                  {category.icon && <category.icon />}
+                  <span>{category.name}</span>
+                </button>
+              ))}
+            </nav>
           </div>
-          <nav className="sidebar-nav">
-            {categories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => setSelectedCategory(category.id)}
-                className={`nav-item ${
-                  selectedCategory === category.id ? "active" : ""
-                }`}
-              >
-                {category.icon && <category.icon />}
-                <span>{category.name}</span>
-              </button>
-            ))}
-          </nav>
-        </aside>
+        </div>
 
         {/* Main Content */}
         <main className="main-content">

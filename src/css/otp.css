@@ -4,14 +4,26 @@
     background-image: radial-gradient(circle at top center, rgb(235, 235, 235) 0%, rgb(235, 235, 235) 10%,rgb(229, 229, 229) 10%, rgb(229, 229, 229) 19%,rgb(222, 222, 222) 19%, rgb(222, 222, 222) 22%,rgb(216, 216, 216) 22%, rgb(216, 216, 216) 24%,rgb(209, 209, 209) 24%, rgb(209, 209, 209) 63%,rgb(203, 203, 203) 63%, rgb(203, 203, 203) 75%,rgb(196, 196, 196) 75%, rgb(196, 196, 196) 100%);
     display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
     position: absolute;
     left: 0;
     top: 0;
 }
 
+.logo {
+    position: relative;
+    top: -9em;
+    width: 100%;
+    display: flex;
+}
+
+.logo img {
+    width: 8em;
+}
+
 .otpbody {
-    background-color: #00000056;
+    background-color: #000000a2;
     width: 40%;
     height: 50vh;
     display: flex;
@@ -20,6 +32,7 @@
     text-align: center;
     font-family: var(--font-family2);
     color: #ffffff;
+    border-radius: 2px;
 }
 
 .otpbody h1 {
@@ -30,7 +43,6 @@
 
 .otpbody h6 {
     font-size: 1rem;
-    margin-top: 3em;
     margin-bottom: 1em;
     font-weight: lighter;
     color: #ffffff;
@@ -39,6 +51,20 @@
 .otpbody p {
     margin-top: 2em;
     margin-bottom: -3em;
+}
+
+.errorstyleing {
+    display: flex;
+    justify-content: center;
+}
+
+.errorstyleing p {
+    color: #000;
+    background-color: #ad00006e;
+    border: 1px solid #b40000;
+    border-radius: 2px;
+    padding: .3em;
+    width: 70%;
 }
 
 .formotp {
@@ -69,27 +95,27 @@
 }
 
 .otpbody p {
-    position: absolute;
     position: relative;
-    bottom: 6em;
-    color: #c40000;
+    bottom: 13em;
+    color: #ffffff;
 }
 
 .otpBtn {
     background-color: #39be00;
     color: #ffffff;
-    width: 100%;
+    width: 90%;
     margin: auto;
     border: none;
     padding: 0.5em;
     font-size: 1rem;
     border-radius: .3rem;
+    cursor: pointer;
 }
 
 .invalidotpBtn {
     background-color: #b3b3b3;
     color: #e2e2e2;
-    width: 100%;
+    width: 90%;
     margin: auto;
     border: none;
     padding: 0.5em;
@@ -101,4 +127,23 @@
 .otpbody a {
     color: #ffffff;
     font-size: 1.2rem;
+}
+
+
+@media (max-width: 730px){
+    .otpbody div h1 {
+        font-size: 1.2rem;
+    }
+
+
+    .otpBtn, .invalidotpBtn {
+        width: 70%;
+        font-size: 1rem;
+        margin-top: 1em;
+    }
+
+    .otpbody {
+        width: 90%;
+        padding: .9px;
+    }
 }

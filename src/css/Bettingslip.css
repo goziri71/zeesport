@@ -246,8 +246,11 @@
 
   .winnings-display .stake-info {
     font-size: 17px;
-    color: rgb(42, 165, 63);
     font-weight: bolder;
+  }
+  
+  .stakevalue {
+    color: rgb(42, 165, 63);
   }
   
   .modal-overlay > div:last-child {

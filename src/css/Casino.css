@@ -1,9 +1,9 @@
 /* Layout Container */
 .casino-layout {
     display: flex;
-    height: 100vh;
+    height: auto;
     padding-top: 20px; /* Height of the fixed header */
-    padding-left: 240px; /* Width of the sidebar */
+    padding-left: 200px; /* Width of the sidebar */
     background-color: #eeeeee;
     color: #ffffff;
     position: relative;
@@ -23,23 +23,35 @@
   }
   
   /* Sidebar */
-  .sidebar {
+
+  .sidebarstyle {
     width: 200px;
-    background-color: #000000d5;
+    background-color: #000000c4;
     padding: 20px 0;
-    border-right: 1px solid #333;
     position: fixed;
     left: 0em;
-    top: 160px; /* Start below fixed header */
-    height: calc(80vh - 60px); /* Full height minus header */
+    top: 160px;
+    height: calc(60vh - 60px); 
     overflow-y: auto;
-    z-index: 900;
+    z-index: 1;
+  }
+
+  .sidebar {
+    width: 200px;
+    background-color: #000000c4;
+    padding: 20px 0;
+    position: fixed;
+    left: 0em;
+    top: 160px;
+    height: calc(60vh - 60px); 
+    overflow-y: auto;
+    z-index: 1;
   }
   
   .sidebar-header {
-  padding: 0 10px 10px;
+    display: flex;
+    padding: 0 10px 10px;
     background-color: rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid #333;
   }
   
   .sidebar-header h2 {
@@ -61,7 +73,6 @@
     background: none;
     color: #ffffff;
     font-size: 1rem;
-    font-weight: bolder;
     text-align: left;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -85,7 +96,7 @@
   }
   
   .content-header {
-    margin-top: 2em;
+    margin-top: 4em;
     margin-bottom: 30px;
     color: #000000;
     text-align: right;
@@ -227,25 +238,53 @@
     padding: 40px;
     color: #888;
   }
+
+  .sidebar-toggle {
+    background-color: #00cc66;
+    display: block;
+  }
   
   /* Responsive Design */
   @media (max-width: 768px) {
     .casino-layout {
-      padding-left: 200px;
+      padding-left: 0px;
     }
   
-    .sidebar {
-      width: 200px;
+
+
+    .mobileSidebarOpen {
+      display: none;
     }
 
-    .sidebar {
-      background-color: #d13f0072;
-      border-right: 1px solid #333;
-      border-radius: 0px 0px 100px 0px;
-    }
+
+  .sidebar {
+    width: auto;
+    background-color: #ffffff00;
+    position: fixed;
+    left: 0em;
+    top: 160px;
+    height: auto; 
+    overflow-y: auto;
+    z-index: 1;
+  }
+
+  .mobile-sidebar-toggle {
+    display: flex ;
+    align-items: center;
+    color: #ffffff;
+    padding: 4px 7px 4px 2px;
+    background-color: #3d3d3dd0;
+    border: none;
+    border-radius: 0px 2px 2px 0px;
+  }
+
+  .mobile-sidebar-toggle p {
+    padding: 0px 3px 0px 5px;
+  }
   
     .games-grid {
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      
       gap: 15px;
     }
   }
@@ -253,7 +292,7 @@
   @media (max-width: 576px) {
     .casino-layout {
       padding-left: 0;
-      padding-top: 120px; /* Account for mobile header */
+      padding-top: 120px; 
     }
   
     .header-container {
@@ -266,7 +305,6 @@
       height: auto;
       position: fixed;
       border-right: none;
-      border-bottom: 1px solid #333;
     }
   
     .main-content {
