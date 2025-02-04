@@ -1,4 +1,4 @@
-import "../../css/createaccount.css";
+import "../../css/Createaccount.css";
 import React, { useState, useEffect, useReducer, useContext } from "react";
 import { AuthApis } from "../../api";
 import { useNavigate } from "react-router-dom";
