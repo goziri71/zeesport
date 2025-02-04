@@ -1,4 +1,4 @@
-import "../../css/BettingSlip.css";
+import "../../css/Bettingslip.css";
 import React, { useEffect, useState, useContext } from "react";
 import { OddContext } from "../../context/oddContext";
 import { AuthContext } from "../../context/authContextProvider";
