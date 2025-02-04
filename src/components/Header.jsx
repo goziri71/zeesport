@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext, useReducer } from "react";
 import "../css/Header.css";
 import { Link } from "react-router-dom";
-import image1 from "../assets/images/ZeeSportlogo.png";
+import image1 from "../assets/images/Zeesportlogo.png";
 import CreateAcc from "../modules/createaccount/CreateAcc";
 import { AuthContext } from "../context/authContextProvider";
 import useLogout from "../hooks/useLogout";
