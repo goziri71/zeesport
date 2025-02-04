@@ -4,7 +4,7 @@ import { OddContext } from "../../context/oddContext";
 import { AuthApis } from "../../api";
 import NewOtpapi from "./NewOtpapi";
 import { useNavigate } from "react-router-dom";
-import image1 from "../../assets/images/ZeeSportlogo.png";
+import image1 from "../../assets/images/Zeesportlogo.png";
 
 const authApis = new AuthApis();
 function Ottpp() {
