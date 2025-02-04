@@ -1,6 +1,6 @@
 import React from "react";
 import "../../css/ComingSoon.css";
-import image1 from "../../assets/images/ZeeSportlogo.png";
+import image1 from "../../assets/images/Zeesportlogo.png";
 
 function ComingSoon() {
   return (
