@@ -1,4 +1,4 @@
-import "../../css/Otp.css";
+import "../../css/otp.css";
 import React, { useState, useContext } from "react";
 import { OddContext } from "../../context/oddContext";
 import { AuthApis } from "../../api";
