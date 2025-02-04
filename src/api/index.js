@@ -1,5 +1,5 @@
-const BASE_URL = "https://betting-api-a5u0.onrender.com";
 import axios from "axios";
+const BASE_URL = "https://betting-api-a5u0.onrender.com";
 
 export class AuthApis {
   async signupUser(payload) {
