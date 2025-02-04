@@ -11,11 +11,6 @@ function OddContextProvider({ children }) {
   const [accountSpinner, setAccountSpinner] = useState(false);
   const [otp, setOtp] = useState(new Array(6).fill(""));
 
-  console.log(bookingCodePopup);
-  console.log(Teams);
-  console.log(bookingCodeFixtures);
-  console.log(accountSpinner);
-
   // Existing calculations
   const calculateTotalOdds = (games) => {
     if (!games || games.length === 0) return 0;

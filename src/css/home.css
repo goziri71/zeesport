@@ -1,7 +1,7 @@
 
 .pupolarcheck {
-    padding: 2.3em 1em 1em 1em;
-    margin-top: 7em;
+    padding: 6em 1em 1em 1em;
+    margin-top: 3.5em;
     display: flex;
     /* display: grid;
     grid-template-columns: 18% 30% 18%; */
@@ -103,14 +103,8 @@ form input{
 .sportyphoto img {
     margin-top: 0.5em;
     width: 65vw;
-    /* display: block;
-    margin-left: auto;
-    margin-right: auto; */
 }
 
-/* .pupolarstructure {
-    background-color: #95ff00;
-} */
 
 .sportpics {
     min-width: 20vw;
@@ -122,39 +116,13 @@ form input{
 }
 
 
-@media (max-width: 930px){
-    /* .pupolarcheck {
-        padding: 3em;
-    }
 
-    .populatext2, 
-    .populartext {
-        width: 25%;
-    }
-    .sportpics img {
-        width: 46%;
-    }
+@media (max-width: 770px){
 
-    .sportpics {
-        display: flex;
-        justify-content: center;
-    } */
-
-    /* .sportpics img {
-        display: none;
-    } */
-}
-/* 
-@media (max-width: 854px){
-     .sportpics img {
-        display: none;
-    }
-}
-*/
-@media (max-width: 730px){
     .pupolarcheck {
         flex-wrap: wrap;
         gap: 1em;
+        margin-top: -1.5em;
     }
 
     .populatext2 {
@@ -180,45 +148,4 @@ form input{
     }
 }
 
-/*
-@media (max-width: 489px){
-    .pupolarcheck {
-        flex-direction: column;
-        gap: .5em;
-    }
-    .populartext h2 {
-        font-size: calc(1.6vw + 1.6vh);
-    }
-    .populatext2 {
-        margin: 0;
-    }
 
-    .pupolarcheck {
-        padding-top: 8em;
-    }
-}
-
-@media (max-width: 570px) {
-    .pupolarcheck {
-        padding-top: 11em;
-    }
-
-    .sportpics img {
-        display: block;
-    }
-}
-
-@media (max-width: 380px) {
-    .pupolarcheck {
-        padding-top: 10em;
-    }
-
-    .sportpics img {
-        display: block;
-    }
-
-    .sportpics {
-        display: flex;
-        justify-content: center;
-    }
-} */

@@ -3,11 +3,18 @@
     color: #ffffff;
     cursor: pointer;
     border-radius: 0px;
-    border: 1px solid #fff;
     padding: 0.5em 1em;
     margin-left: 5px;
     margin-top: 0.75em;
     font-family: var(--font-family2);
+    text-align: center;
+    border-radius: 0px 5px 5px 0px;
+    border: 1px solid #ffffff;
+}
+
+.registerButton:hover {
+    background-color: #36b500;
+    border: 1px solid #00000000;
 }
 
 .registerCase {

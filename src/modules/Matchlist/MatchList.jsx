@@ -31,8 +31,6 @@ function MatchList() {
     bookingCodePopup,
   } = useContext(OddContext);
 
-  console.log(Teams);
-
   const addGames = (value) => {
     setBookingCodePopup(true);
     const currentOddsContext = Teams || [];

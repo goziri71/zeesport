@@ -14,15 +14,16 @@ function Ottpp() {
     useContext(OddContext);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-
-  console.log(verifyData);
+  const [showError, setShowError] = useState(false);
 
   const handleFormSubmission = async (data) => {
+    setShowError(false);
     try {
       setError(null);
       setVerifyData(null);
       console.log(data);
       const response = await authApis.verifyAccount({ otp: Number(data) });
+      setShowError(true);
       console.log(response);
       if (response.success) {
         localStorage.setItem("LT", JSON.stringify(response.data.token));
@@ -56,7 +57,9 @@ function Ottpp() {
         </div>
         <div className="otpbody">
           <div>
-            <span className="errorstyleing">{error && <p>{error}</p>}</span>
+            <span className={`errorstyleing ${showError ? "show" : ""}`}>
+              {error && <p>{error}</p>}
+            </span>
             <h1>Verification Code</h1>
             <h6>{verifyData?.message}</h6>
             <a href="#" onClick={handleRequestNewOTP}>

@@ -35,7 +35,8 @@ function Header() {
   const { validUser } = useContext(AuthContext);
   const { logoutUser } = useLogout();
   const [error, setError] = useState(null);
-  const [showError, setShowError] = useState(false);
+  const [mobileView, setMobileView] = useState(false);
+  const [myAccount, setMyAccount] = useState(true);
   const [state, dispatch] = useReducer(reducer, { email: "", password: "" });
   const [formValue, setFormValue] = useState(null);
   const [dropDown, setDropDown] = useState(true);
@@ -46,6 +47,7 @@ function Header() {
   const [resetErrorMesage, setResetErrorMesage] = useState(null);
   const [updateMessagebgc, setUpdateMessagebgc] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
+  const [isAccountDropDown, setIsAccountDropDown] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -65,7 +67,7 @@ function Header() {
       localStorage.setItem("LT", JSON.stringify(response.token));
       window.location.reload();
       setLoginSpiner(null);
-      setUserDetails(validUser.user.firstname);
+      // setUserDetails(validUser.user.firstname);
     } else {
       setError(response);
       setLoginSpiner(null);
@@ -73,10 +75,10 @@ function Header() {
         setError(null);
       }, 4000);
     }
-    console.log(response);
   };
 
   const handleSideBar = () => {
+    setMobileView(true);
     setDropDown(!dropDown);
   };
 
@@ -106,24 +108,80 @@ function Header() {
       <div>
         <div className="header">
           <Link to="/">
-            <div className="headerText">
+            <div
+              className={`headerText ${
+                !validUser?.success ? "headerstyleup" : ""
+              }`}
+            >
               <img src={image1} alt="this is zee sport logo" />
             </div>
           </Link>
 
           <div className="userlogin">
-            <div className="usernamestyle">
-              <div>
-                {validUser?.success ? (
-                  <h5>{validUser?.user.firstname.slice(0, 2)}</h5>
-                ) : null}
-              </div>
-              {validUser?.user && (
-                <button type="submit" onClick={logoutUser}>
-                  Logout
-                </button>
-              )}
-            </div>
+            {validUser?.success && (
+              <>
+                <p className="balance">
+                  NGN{" "}
+                  <span className="amount">{`${validUser?.user.balance}`}</span>
+                </p>
+                <div
+                  onMouseOver={() => {
+                    setIsAccountDropDown(true);
+                  }}
+                  onMouseOut={() => {
+                    setIsAccountDropDown(false);
+                  }}
+                  className={`usernamestyle ${
+                    myAccount ? "usernamestyleclear" : ""
+                  }`}
+                >
+                  {validUser?.success && (
+                    <div className="profileandBalnce">
+                      <span>My Account</span>
+                      <Icon
+                        icon="mynaui:chevron-down-solid"
+                        width="15"
+                        height="15"
+                        style={{ color: "#fff" }}
+                      />
+                    </div>
+                  )}
+                  {isAccountDropDown && (
+                    <div
+                      onMouseOver={() => {
+                        setIsAccountDropDown(true);
+                      }}
+                      onMouseOut={() => {
+                        setIsAccountDropDown(false);
+                      }}
+                      className="userDisplayborder"
+                    >
+                      {validUser?.success && (
+                        <div className="profileAlign">
+                          <Icon
+                            icon="ix:user-profile-filled"
+                            width="20"
+                            height="20"
+                            style={{ color: "#ffffff", marginBottom: "0px" }}
+                          />
+                          <h5>{validUser?.user.firstname.toUpperCase()}</h5>
+                        </div>
+                      )}
+                      {validUser?.user && (
+                        <div
+                          className="button"
+                          type="submit"
+                          onClick={logoutUser}
+                        >
+                          Logout
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
+
             {(validUser?.status == 400 ||
               validUser?.message == "Network Error") && (
               <div className="login-forgetpassword-box">
@@ -168,10 +226,9 @@ function Header() {
                     >
                       {loginSpiner ? (
                         <l-dot-spinner
-                          size="8"
+                          size="10"
                           speed="0.3"
                           color="white"
-                          padding="0.5em 1.5em"
                         ></l-dot-spinner>
                       ) : (
                         "Login"
@@ -265,14 +322,17 @@ function Header() {
             )}
             <div className="logincreate_acc">
               <div>
-                <button
-                  className="loginbtndisplay"
-                  onClick={() => {
-                    setLoginDisplay(!loginDisplay);
-                  }}
-                >
-                  Login
-                </button>
+                {(validUser?.status == 400 ||
+                  validUser?.message == "Network Error") && (
+                  <button
+                    className="loginbtndisplay"
+                    onClick={() => {
+                      setLoginDisplay(!loginDisplay);
+                    }}
+                  >
+                    Login
+                  </button>
+                )}
               </div>
               <div>
                 {(validUser?.status == 400 ||
@@ -281,42 +341,143 @@ function Header() {
             </div>
           </div>
         </div>
-
-        <div className={dropDown ? "typesOfSport" : "typesOfSporthidedisplay"}>
-          <div className="typsofsportdiv">
-            <Link className="sportFocus" to="/">
-              Sport
-            </Link>
-            <Link className="sportFocus" to="/Casino">
-              Casino
-            </Link>
-            <Link className="sportFocus" to="/LiveBetting">
-              LiveBetting
-            </Link>
-            <Link className="sportFocus" to="/SchedulVirtual">
-              SchedulVirtual
-            </Link>
-            <Link className="sportFocus" to="/Jackport">
-              Jackport
-            </Link>
-            <Link className="sportFocus" to="/LiveScore">
-              Livescore
-            </Link>
-            <Link className="sportFocus" to="/Result">
-              Result
-            </Link>
+        <div className={`mobileSideBar ${dropDown ? "mobileSideBarhide" : ""}`}>
+          <div
+            className={dropDown ? "typesOfSport" : "typesOfSporthidedisplay"}
+          >
+            <div className="typsofsportdiv">
+              <>
+                {validUser?.success && mobileView && (
+                  <div className="profileAlign">
+                    <Icon
+                      icon="ix:user-profile-filled"
+                      width="30"
+                      height="30"
+                      style={{ color: "#fff", marginBottom: "-10px" }}
+                    />
+                    <h5>
+                      {validUser?.user.firstname.charAt(0).toUpperCase() +
+                        validUser?.user.firstname.slice(1).toLowerCase()}
+                    </h5>
+                  </div>
+                )}
+              </>
+              <Link className="sportFocus" to="/">
+                {mobileView && (
+                  <Icon
+                    icon="ic:baseline-sports-basketball"
+                    width="15"
+                    height="15"
+                    style={{ marginRight: "20", color: "#fff" }}
+                  />
+                )}
+                Sport
+              </Link>
+              <Link className="sportFocus" to="/Casino">
+                {mobileView && (
+                  <Icon
+                    icon="maki:casino"
+                    width="15"
+                    height="15"
+                    style={{ marginRight: "20", color: "#fff" }}
+                  />
+                )}
+                Casino
+              </Link>
+              <Link className="sportFocus" to="/LiveBetting">
+                {mobileView && (
+                  <Icon
+                    icon="mingcute:live-line"
+                    width="15"
+                    height="15"
+                    style={{ marginRight: "20", color: "#fff" }}
+                  />
+                )}
+                LiveBetting
+              </Link>
+              <Link className="sportFocus" to="/SchedulVirtual">
+                {mobileView && (
+                  <Icon
+                    icon="eos-icons:virtual-guest"
+                    width="15"
+                    height="15"
+                    style={{ marginRight: "20", color: "#fff" }}
+                  />
+                )}
+                SchedulVirtual
+              </Link>
+              <Link className="sportFocus" to="/Jackport">
+                {mobileView && (
+                  <Icon
+                    icon="game-icons:card-jack-clubs"
+                    width="15"
+                    height="15"
+                    style={{ marginRight: "20", color: "#fff" }}
+                  />
+                )}
+                Jackport
+              </Link>
+              <Link className="sportFocus" to="/LiveScore">
+                {mobileView && (
+                  <Icon
+                    icon="ic:baseline-sports-score"
+                    width="15"
+                    height="15"
+                    style={{ marginRight: "20", color: "#fff" }}
+                  />
+                )}
+                Livescore
+              </Link>
+              <Link className="sportFocus" to="/Result">
+                {mobileView && (
+                  <Icon
+                    icon="carbon:result-old"
+                    width="15"
+                    height="15"
+                    style={{ marginRight: "20", color: "#fff" }}
+                  />
+                )}
+                Result
+              </Link>
+              {validUser?.success && mobileView && (
+                <div className="usernamestyle">
+                  <div className="userDisplayborder">
+                    <Icon
+                      icon="majesticons:logout"
+                      width="15"
+                      height="15"
+                      style={{
+                        marginRight: "16",
+                        marginLeft: "8",
+                        marginTop: "20",
+                        color: "#fff",
+                      }}
+                    />
+                    {validUser?.success && (
+                      <div
+                        className="button"
+                        type="submit"
+                        onClick={logoutUser}
+                      >
+                        Logout
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
-      </div>
-      <div className="iconebar">
-        <div onClick={handleSideBar}>
-          <Icon
-            icon={
-              dropDown
-                ? "material-symbols:menu"
-                : "line-md:menu-to-close-alt-transition"
-            }
-          />
+        <div className="iconebar">
+          <div onClick={handleSideBar}>
+            <Icon
+              icon={
+                dropDown
+                  ? "material-symbols:menu"
+                  : "line-md:menu-to-close-alt-transition"
+              }
+            />
+          </div>
         </div>
       </div>
     </div>

@@ -9,13 +9,13 @@ function SecondHeader() {
       <Header />
       <div className="secondheader">
         <Link to="/">Home</Link>
-        <Link to="/football">Football</Link>
-        <Link to="/vfootball">vFootball</Link>
-        <Link to="/basketball">Basketball</Link>
-        <Link to="/tennis">Tennis</Link>
-        <Link to="/table-tennis">Table Tennis</Link>
-        <Link to="/eFootball">eFootball</Link>
-        <Link to="/eBasketball">eBasketball</Link>
+        <Link to="/">Football</Link>
+        <Link to="/">vFootball</Link>
+        <Link to="/">Basketball</Link>
+        <Link to="/">Tennis</Link>
+        <Link to="/">Table Tennis</Link>
+        <Link to="/">eFootball</Link>
+        <Link to="/">eBasketball</Link>
       </div>
     </div>
   );

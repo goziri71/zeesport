@@ -405,15 +405,17 @@
   
   /* Media Queries for Responsiveness */
   @media screen and (max-width: 768px) {
+
     .live-betting {
-      padding: 16px;
+      margin: -2.8em auto 0;
+      padding-top: 3em;
     }
   
-    .header {
+    /* .header {
       flex-direction: column;
       gap: 16px;
       text-align: center;
-    }
+    } */
   
     .match-info {
       flex-direction: column;

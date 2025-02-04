@@ -9,14 +9,14 @@
   }
 
   .backgc {
-    padding-top: 180px;
+    padding-top: 90px;
     font-family: var(--font-family2);
   }
 
 .schedule-virtual {
     background-color: #1a1e2e;
     color: #ffffff;
-    padding: 20px;
+    padding: 130px 20px;
     max-width: 1024px;
     margin: -20px auto; /* Adjust this value based on your SecondHeader height */
 }
@@ -210,7 +210,7 @@
 
 @media (max-width: 768px) {
     .schedule-virtual {
-        padding: 15px;
+        padding: 50px 15px;
     }
 
     .sports-tabs {

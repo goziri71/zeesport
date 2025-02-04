@@ -1,6 +1,7 @@
 import "../../css/BettingSlip.css";
 import React, { useEffect, useState, useContext } from "react";
 import { OddContext } from "../../context/oddContext";
+import { AuthContext } from "../../context/authContextProvider";
 import { AuthApis } from "../../api";
 import { Icon } from "@iconify/react";
 
@@ -20,9 +21,6 @@ function BettingSlip() {
     setBookingCodePopup,
   } = useContext(OddContext);
 
-  console.log(Teams + "clicked");
-  console.log(bookingCodeFixtures);
-
   const [stake, setStake] = useState(100);
   const [gamesOdd, setGamesOdd] = useState(null);
   const [showPotentialWin, setShowPotentialWin] = useState(null);
@@ -32,6 +30,7 @@ function BettingSlip() {
   const [bookingRequestValue, setBookingRequestValue] = useState(null);
   const [confirmRequest, setConfirmRequest] = useState(null);
   const [error, setError] = useState(null);
+  const { validUser, setValidUser } = useContext(AuthContext);
 
   let DEFAULT_STAKE = 100;
 
@@ -72,12 +71,32 @@ function BettingSlip() {
       if (allGames.length === 1) {
         // Single game submission
         const { fixtureId, selection, odd } = allGames[0];
-        value = await apiValues.handleOffline({
-          fixtureId,
-          selection,
+        if (validUser.success) {
+          value = await apiValues.handleOnline({
+            fixtureId,
+            selection,
+            odd,
+            stake,
+          });
+          const res = await apiValues.authenticator();
+          setValidUser(res);
+        } else {
+          value = await apiValues.handleOffline({
+            fixtureId,
+            selection,
+            stake,
+            odd,
+          });
+        }
+      }
+      if (validUser.success) {
+        // Multi-game submission
+        value = await apiValues.handleOnline({
+          games: allGames,
           stake,
-          odd,
         });
+        const res = await apiValues.authenticator();
+        setValidUser(res);
       } else {
         // Multiple games submission
         value = await apiValues.handleOffline({
@@ -338,7 +357,7 @@ function BettingSlip() {
                   className={!isBookingCodeValid ? "" : "button-enabled"}
                 >
                   {confirmRequest ? (
-                    <Icon icon="svg-spinners:6-dots-rotate" width="20" />
+                    <Icon icon="svg-spinners:6-dots-rotate" width="14" />
                   ) : (
                     "Load"
                   )}

@@ -32,7 +32,7 @@
     text-align: center;
     font-family: var(--font-family2);
     color: #ffffff;
-    border-radius: 2px;
+    border-radius: 5px;
 }
 
 .otpbody h1 {
@@ -54,15 +54,24 @@
 }
 
 .errorstyleing {
+    
     display: flex;
     justify-content: center;
+    opacity: 0; 
+    transform: translateY(0px);
+    transition: opacity 0.7s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.errorstyleing.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .errorstyleing p {
     color: #000;
-    background-color: #ad00006e;
-    border: 1px solid #b40000;
-    border-radius: 2px;
+    background-color: #ff000087;
+    border: 2px solid #c20000;
+    border-radius: 3px;
     padding: .3em;
     width: 70%;
 }

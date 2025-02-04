@@ -6,9 +6,6 @@ const NewOtpapi = ({ handleFormSubmission }) => {
   const { accountSpinner, setAccountSpinner, otp, setOtp } =
     useContext(OddContext);
 
-  console.log(accountSpinner);
-  console.log(otp);
-
   const handleChange = (element, index) => {
     if (isNaN(element.value)) return;
 

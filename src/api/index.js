@@ -148,6 +148,35 @@ export class AuthApis {
     }
   }
 
+  async handleOnline(data) {
+    try {
+      const { fixtureId, selection, games, odd, stake } = data;
+      const response = await axios.post(
+        `${BASE_URL}/yusuf_atlantis/api/v1/book-bet`,
+        {
+          fixtureId,
+          selection,
+          games,
+          stake,
+          odd,
+        },
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${JSON.parse(localStorage.getItem("LT"))}`,
+          },
+        }
+      );
+
+      console.log(response.data);
+      const res = await response.data;
+      return res;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
+
   async handleOffline(data) {
     try {
       const { fixtureId, selection, games, odd, stake } = data;
@@ -162,8 +191,12 @@ export class AuthApis {
         },
         {
           withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${JSON.parse(localStorage.getItem("LT"))}`,
+          },
         }
       );
+
       console.log(response.data);
       const res = await response.data;
       return res;

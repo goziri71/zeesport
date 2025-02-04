@@ -17,9 +17,7 @@
     left: 0;
     right: 0;
     height: 60px; /* Fixed header height */
-    background-color: #242424;
     z-index: 1000;
-    border-bottom: 1px solid #333;
   }
   
   /* Sidebar */
@@ -96,7 +94,7 @@
   }
   
   .content-header {
-    margin-top: 4em;
+    margin-top: 6em;
     margin-bottom: 30px;
     color: #000000;
     text-align: right;
@@ -247,6 +245,7 @@
   /* Responsive Design */
   @media (max-width: 768px) {
     .casino-layout {
+      padding-top: 0em;
       padding-left: 0px;
     }
   
@@ -284,8 +283,11 @@
   
     .games-grid {
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      
       gap: 15px;
+    }
+
+    .content-header {
+      margin-top: 0;
     }
   }
   
@@ -301,7 +303,7 @@
   
     .sidebar {
       width: 40%;
-      top: 160px;
+      top: 70px;
       height: auto;
       position: fixed;
       border-right: none;
