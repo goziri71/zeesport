@@ -3,6 +3,7 @@ import "../css/AppLayout.css";
 import { dotSpinner } from "ldrs";
 import { AuthContext } from "../context/authContextProvider";
 import SecondHeader from "../components/SecondHeader";
+import SkeletonLoader from "./SkeletonLoader";
 
 function AppLayout({ children }) {
   const { validUser } = useContext(AuthContext);
@@ -12,17 +13,7 @@ function AppLayout({ children }) {
   return (
     <div className="layout1">
       {!validUser ? (
-        <div
-          style={{
-            width: "100vw",
-            height: "100vh",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <l-dot-spinner size="50" speed="0.3" color="black"></l-dot-spinner>
-        </div>
+        <SkeletonLoader />
       ) : (
         <>
           <div className="layout2">

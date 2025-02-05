@@ -1,0 +1,106 @@
+/* Skeleton.css */
+.skeleton-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  /* Skeleton animation */
+  @keyframes shimmer {
+    0% {
+      background-position: -200px 0;
+    }
+    100% {
+      background-position: 200px 0;
+    }
+  }
+  
+  .skeleton-nav,
+  .skeleton-hero,
+  .skeleton-categories,
+  .skeleton-live {
+    display: flex;
+    gap: 15px;
+  }
+  
+  /* Common skeleton styles */
+  .skeleton-nav div,
+  .skeleton-hero div,
+  .skeleton-categories div,
+  .skeleton-live div {
+    background: linear-gradient(90deg, #e0e0e0 25%, #f5f5f5 50%, #e0e0e0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite linear;
+    border-radius: 5px;
+  }
+  
+  /* Navbar skeleton */
+  .skeleton-nav {
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+  }
+  
+  .skeleton-logo {
+    width: 150px;
+    height: 40px;
+  }
+  
+  .skeleton-menu {
+    width: 300px;
+    height: 30px;
+  }
+  
+  .skeleton-buttons {
+    width: 100px;
+    height: 30px;
+  }
+  
+  /* Hero section skeleton */
+  .skeleton-hero {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .skeleton-banner {
+    width: 100%;
+    height: 200px;
+  }
+  
+  .skeleton-input {
+    width: 80%;
+    height: 40px;
+  }
+  
+  .skeleton-button {
+    width: 150px;
+    height: 40px;
+  }
+  
+  /* Betting categories skeleton */
+  .skeleton-categories {
+    justify-content: space-between;
+  }
+  
+  .skeleton-category {
+    width: 20%;
+    height: 50px;
+  }
+  
+  /* Live Betting skeleton */
+  .skeleton-live {
+    flex-direction: column;
+  }
+  
+  .skeleton-title {
+    width: 200px;
+    height: 30px;
+  }
+  
+  .skeleton-box {
+    width: 100%;
+    height: 100px;
+  }
+  
