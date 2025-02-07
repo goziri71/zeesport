@@ -11,6 +11,8 @@ import Football from "./modules/football/Football";
 import LiveScore from "./modules/livescore/LiveScore";
 import Ottpp from "./modules/otp/Ottpp";
 import ForgotPassword from "./modules/forgortPassword/ForgotPassword";
+import BettingSlip from "./modules/highlights/BettingSlip";
+import ListOfBettingHistory from "./modules/bettinghistgory/ListOfBesttingHistory";
 
 export const router = createBrowserRouter([
   {
@@ -52,6 +54,10 @@ export const router = createBrowserRouter([
   {
     path: "/verify",
     element: <Ottpp />,
+  },
+  {
+    path: "/ListOfBettingHistory",
+    element: <ListOfBettingHistory />,
   },
   {
     path: "/reset/password/:id/:token",

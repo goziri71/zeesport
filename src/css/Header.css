@@ -163,6 +163,16 @@
     margin-top: 0em;
 }
 
+.bettinglistHistory {
+    text-decoration: none;
+    font-family: var(--font-family2);
+    color: #fff;
+}
+
+.bettinglistHistory:hover {
+    color: #f46531;
+}
+
 
 .loginButtonInvalid {
     background-color: #555555a1;
@@ -191,6 +201,7 @@
 
 .amount {
     color: #f49431;
+    margin-right: 6px;
 }
 
 

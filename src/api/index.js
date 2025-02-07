@@ -219,4 +219,23 @@ export class AuthApis {
       return error;
     }
   }
+
+  async handleBettingHistory() {
+    try {
+      const response = await axios.get(
+        `${BASE_URL}/yusuf_atlantis/api/v1/user/bets/all`,
+        {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${JSON.parse(localStorage.getItem("LT"))}`,
+          },
+        }
+      );
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.log(`betting history error ${error}`);
+      return error;
+    }
+  }
 }

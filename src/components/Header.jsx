@@ -49,6 +49,8 @@ function Header() {
   const [showPassword, setShowPassword] = useState(false);
   const [isAccountDropDown, setIsAccountDropDown] = useState(false);
 
+  console.log(error);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
@@ -124,6 +126,16 @@ function Header() {
                   NGN{" "}
                   <span className="amount">{`${validUser?.user.balance}`}</span>
                 </p>
+                {validUser?.success && (
+                  <>
+                    <Link
+                      className="bettinglistHistory"
+                      to="/ListOfBettingHistory"
+                    >
+                      Betting history
+                    </Link>
+                  </>
+                )}
                 <div
                   onMouseOver={() => {
                     setIsAccountDropDown(true);
@@ -192,7 +204,7 @@ function Header() {
                   <div className="formedite">
                     {error && (
                       <div className="texterrordisplay">
-                        <p>{error.response.data.error}</p>
+                        <p>{error?.response.data.error}</p>
                       </div>
                     )}
                     <input
