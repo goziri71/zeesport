@@ -10,7 +10,7 @@ function ListOfBettingHistory() {
     singleBets: [],
     multipleBets: [],
   });
-  const [activeTab, setActiveTab] = useState("single");
+  const [activeTab, setActiveTab] = useState("multiple");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 

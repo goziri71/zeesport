@@ -49,8 +49,6 @@ function Header() {
   const [showPassword, setShowPassword] = useState(false);
   const [isAccountDropDown, setIsAccountDropDown] = useState(false);
 
-  console.log(error);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
